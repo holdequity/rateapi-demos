@@ -155,12 +155,42 @@ app.get('/', (req, res) => {
     .message-content table {
       border-collapse: collapse;
       width: 100%;
+      margin: 12px 0;
+      font-size: 14px;
+    }
+    .message-content th {
+      background: #f8f9fa;
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+      font-weight: 600;
+    }
+    .message-content td {
+      border: 1px solid #ddd;
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .message-content tr:nth-child(even) {
+      background: #f9f9f9;
+    }
+    .message-content code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .message-content ul, .message-content ol {
+      margin: 8px 0;
+      padding-left: 20px;
+    }
+    .message-content li {
+      margin: 4px 0;
+    }
+    .message-content p {
       margin: 8px 0;
     }
-    .message-content th, .message-content td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: left;
+    .message-content h1, .message-content h2, .message-content h3 {
+      margin: 12px 0 8px 0;
     }
     .input-area {
       display: flex;
@@ -267,10 +297,17 @@ app.get('/', (req, res) => {
     </div>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script>
     const messagesDiv = document.getElementById('messages');
     const input = document.getElementById('message-input');
     const sendBtn = document.getElementById('send-btn');
+
+    // Configure marked for safe rendering
+    marked.setOptions({
+      breaks: true,
+      gfm: true,
+    });
 
     function addMessage(content, isUser) {
       const div = document.createElement('div');
@@ -281,13 +318,8 @@ app.get('/', (req, res) => {
     }
 
     function formatContent(content) {
-      // Simple markdown-like formatting
-      return content
-        .replace(/\\n/g, '<br>')
-        .replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>')
-        .replace(/\`\`\`([\\s\\S]*?)\`\`\`/g, '<pre>$1</pre>')
-        .replace(/\`(.+?)\`/g, '<code>$1</code>')
-        .replace(/^- (.+)/gm, '• $1');
+      // Use marked for full markdown support including tables
+      return marked.parse(content);
     }
 
     function showLoading() {
