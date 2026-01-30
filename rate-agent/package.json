@@ -1,0 +1,15 @@
+{
+  "name": "rate-agent",
+  "version": "1.0.0",
+  "description": "AI-powered mortgage advisor demo using RateAPI",
+  "type": "module",
+  "main": "rate-agent.js",
+  "scripts": {
+    "start": "node rate-agent.js"
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "keywords": ["rateapi", "ai", "mortgage", "agent", "demo"],
+  "license": "MIT"
+}

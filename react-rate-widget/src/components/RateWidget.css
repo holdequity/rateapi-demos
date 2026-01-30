@@ -1,0 +1,352 @@
+/* RateAPI Widget - Core Styles */
+
+.rateapi-widget {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  max-width: 600px;
+}
+
+/* Light Theme (default) */
+.rateapi-widget-light {
+  background: #ffffff;
+  color: #1f2937;
+  border: 1px solid #e5e7eb;
+}
+
+/* Dark Theme */
+.rateapi-widget-dark {
+  background: #1f2937;
+  color: #f9fafb;
+  border: 1px solid #374151;
+}
+
+/* Auto Theme (follows system preference) */
+@media (prefers-color-scheme: dark) {
+  .rateapi-widget-auto {
+    background: #1f2937;
+    color: #f9fafb;
+    border: 1px solid #374151;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  .rateapi-widget-auto {
+    background: #ffffff;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+  }
+}
+
+/* Header */
+.rateapi-widget-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid;
+}
+
+.rateapi-widget-light .rateapi-widget-header {
+  border-bottom-color: #e5e7eb;
+}
+
+.rateapi-widget-dark .rateapi-widget-header {
+  border-bottom-color: #374151;
+}
+
+.rateapi-widget-title {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rateapi-widget-updated {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+/* Filters */
+.rateapi-widget-filters {
+  display: flex;
+  gap: 12px;
+  padding: 12px 20px;
+  border-bottom: 1px solid;
+}
+
+.rateapi-widget-light .rateapi-widget-filters {
+  border-bottom-color: #e5e7eb;
+  background: #f9fafb;
+}
+
+.rateapi-widget-dark .rateapi-widget-filters {
+  border-bottom-color: #374151;
+  background: #111827;
+}
+
+.rateapi-widget-select {
+  flex: 1;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.rateapi-widget-light .rateapi-widget-select {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  color: #1f2937;
+}
+
+.rateapi-widget-dark .rateapi-widget-select {
+  background: #374151;
+  border: 1px solid #4b5563;
+  color: #f9fafb;
+}
+
+/* Content */
+.rateapi-widget-content {
+  min-height: 150px;
+}
+
+/* Loading */
+.rateapi-widget-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  gap: 12px;
+  opacity: 0.6;
+}
+
+.rateapi-widget-spinner {
+  width: 24px;
+  height: 24px;
+  border: 2px solid currentColor;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: rateapi-spin 0.8s linear infinite;
+}
+
+@keyframes rateapi-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Error */
+.rateapi-widget-error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 20px;
+  gap: 8px;
+  color: #ef4444;
+}
+
+.rateapi-widget-error-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  background: #ef4444;
+  color: white;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* Empty */
+.rateapi-widget-empty {
+  padding: 40px 20px;
+  text-align: center;
+  opacity: 0.6;
+}
+
+/* Table */
+.rateapi-widget-table {
+  display: flex;
+  flex-direction: column;
+}
+
+.rateapi-widget-table-header {
+  display: flex;
+  padding: 12px 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.6;
+}
+
+.rateapi-widget-row {
+  display: flex;
+  padding: 14px 20px;
+  align-items: center;
+  border-top: 1px solid;
+  transition: background 0.15s ease;
+}
+
+.rateapi-widget-light .rateapi-widget-row {
+  border-top-color: #f3f4f6;
+}
+
+.rateapi-widget-dark .rateapi-widget-row {
+  border-top-color: #374151;
+}
+
+.rateapi-widget-row-clickable {
+  cursor: pointer;
+}
+
+.rateapi-widget-light .rateapi-widget-row-clickable:hover {
+  background: #f9fafb;
+}
+
+.rateapi-widget-dark .rateapi-widget-row-clickable:hover {
+  background: #111827;
+}
+
+/* Columns */
+.rateapi-widget-col-institution {
+  flex: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.rateapi-widget-institution-name {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rateapi-widget-institution-location {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.rateapi-widget-col-rate,
+.rateapi-widget-col-apr,
+.rateapi-widget-col-points {
+  flex: 1;
+  text-align: right;
+  font-size: 14px;
+}
+
+.rateapi-widget-rate-value {
+  font-weight: 600;
+  color: #10b981;
+}
+
+.rateapi-widget-dark .rateapi-widget-rate-value {
+  color: #34d399;
+}
+
+/* Footer */
+.rateapi-widget-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-top: 1px solid;
+}
+
+.rateapi-widget-light .rateapi-widget-footer {
+  border-top-color: #e5e7eb;
+  background: #f9fafb;
+}
+
+.rateapi-widget-dark .rateapi-widget-footer {
+  border-top-color: #374151;
+  background: #111827;
+}
+
+.rateapi-widget-refresh {
+  padding: 6px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.rateapi-widget-light .rateapi-widget-refresh {
+  background: #3b82f6;
+  color: white;
+  border: none;
+}
+
+.rateapi-widget-light .rateapi-widget-refresh:hover:not(:disabled) {
+  background: #2563eb;
+}
+
+.rateapi-widget-dark .rateapi-widget-refresh {
+  background: #60a5fa;
+  color: #1f2937;
+  border: none;
+}
+
+.rateapi-widget-dark .rateapi-widget-refresh:hover:not(:disabled) {
+  background: #93c5fd;
+}
+
+.rateapi-widget-refresh:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.rateapi-widget-powered {
+  font-size: 11px;
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.15s ease;
+}
+
+.rateapi-widget-light .rateapi-widget-powered {
+  color: #1f2937;
+}
+
+.rateapi-widget-dark .rateapi-widget-powered {
+  color: #f9fafb;
+}
+
+.rateapi-widget-powered:hover {
+  opacity: 0.8;
+}
+
+/* Compact Mode */
+.rateapi-widget-compact .rateapi-widget-header {
+  padding: 12px 16px;
+}
+
+.rateapi-widget-compact .rateapi-widget-title {
+  font-size: 16px;
+}
+
+.rateapi-widget-compact .rateapi-widget-filters {
+  padding: 8px 16px;
+}
+
+.rateapi-widget-compact .rateapi-widget-table-header,
+.rateapi-widget-compact .rateapi-widget-row {
+  padding: 10px 16px;
+}
+
+.rateapi-widget-compact .rateapi-widget-footer {
+  padding: 10px 16px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .rateapi-widget-filters {
+    flex-direction: column;
+  }
+
+  .rateapi-widget-col-points {
+    display: none;
+  }
+}

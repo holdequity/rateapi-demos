@@ -1,0 +1,12 @@
+{
+  "name": "rate-explorer",
+  "version": "1.0.0",
+  "description": "Interactive CLI demo for RateAPI decision engine",
+  "type": "module",
+  "main": "rate-explorer.js",
+  "scripts": {
+    "start": "node rate-explorer.js"
+  },
+  "keywords": ["rateapi", "mortgage", "rates", "demo"],
+  "license": "MIT"
+}

@@ -1,0 +1,14 @@
+# Environment files with secrets
+.env
+
+# Node modules
+node_modules/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# OS files
+.DS_Store

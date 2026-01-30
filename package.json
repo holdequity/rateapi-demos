@@ -1,0 +1,31 @@
+{
+  "name": "rateapi-demos",
+  "version": "1.0.0",
+  "description": "Self-contained demos for RateAPI: mortgage rates from 4,000+ US credit unions",
+  "keywords": [
+    "mortgage-rates",
+    "fintech",
+    "api-demo",
+    "webhooks",
+    "ai-agents",
+    "openai",
+    "financial-data",
+    "credit-unions",
+    "real-time-data"
+  ],
+  "homepage": "https://rateapi.dev",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/holdequity/rateapi-demos.git"
+  },
+  "bugs": {
+    "url": "https://github.com/holdequity/rateapi-demos/issues"
+  },
+  "type": "module",
+  "scripts": {
+    "rate-explorer": "cd rate-explorer && node rate-explorer.js",
+    "rate-monitor": "cd rate-monitor && npm install && node server.js",
+    "rate-agent": "cd rate-agent && node rate-agent.js"
+  },
+  "license": "MIT"
+}
