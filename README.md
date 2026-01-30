@@ -1,4 +1,4 @@
-# 🏦 RateAPI Demos
+# RateAPI Demos
 
 <p align="center">
   <b>2,900+ credit union mortgage rates. One API call.</b>
@@ -9,8 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="#-quick-start">Quick Start</a> •
-  <a href="#-the-demos">Demos</a> •
+  <a href="#-pick-your-demo">Pick a Demo</a> •
+  <a href="#-demo-details">Demo Details</a> •
   <a href="https://rateapi.dev">Documentation</a>
 </p>
 
@@ -21,230 +21,168 @@
 ![Demos](https://img.shields.io/badge/demos-5-orange)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
 
-**⚡ Run in 30 seconds:**
-
 ```bash
 git clone https://github.com/holdequity/rateapi-demos.git
 cd rateapi-demos
 node run.js rate-explorer  # Auto-creates API key, shows live rates
 ```
 
-> Want to build mortgage tools, AI agents, or fintech apps? These 5 demos show you how.
-
 ---
 
-## 💡 Why RateAPI?
+## 🎯 Pick Your Demo
 
-Traditional mortgage data is:
-- ❌ **Siloed** - Scattered across 4,000+ credit union websites
-- ❌ **Stale** - Updated manually, often weeks old
-- ❌ **Inaccessible** - No APIs, only HTML scraping
+| Demo | Best For | Run Time |
+|------|----------|----------|
+| [**Rate Explorer**](#-1-rate-explorer) | See the API in action | 30 sec |
+| [**Webhook Monitor**](#-2-webhook-monitor) | Build rate alerts | 2 min |
+| [**AI Agent**](#-3-ai-agent) | Add to chatbots/assistants | 1 min |
+| [**React Widget**](#-4-react-widget) | Embed in React apps | 5 min |
+| [**LangChain Agent**](#-5-langchain-agent) | Build AI mortgage advisors | 10 min |
 
-RateAPI solves this:
-- ✅ **Unified** - One API for all US credit unions
-- ✅ **Real-time** - Rates updated daily from source
-- ✅ **Developer-friendly** - REST API, webhooks, MCP integration
+### API Coverage by Demo
 
----
-
-## 🎯 Which Demo Should I Start With?
-
-| If you want to...                          | Start here             | Time to run |
-|--------------------------------------------|------------------------|-------------|
-| Just see rates as fast as possible         | Rate Explorer          | 30 seconds  |
-| Build a rate alert system                  | Webhook Monitor        | 2 minutes   |
-| Integrate with AI/LLM apps                 | AI Agent               | 1 minute    |
-| **Embed rates in your React app**          | **React Rate Widget**  | **5 minutes** |
-| **Build a conversational mortgage advisor**| **LangChain Agent**    | **10 minutes**|
-| Understand the full API surface            | Run all 5 in order     | 15 minutes  |
-
-**Pro tip:** Run Rate Explorer first - it auto-creates an API key the others will use.
-
----
-
-## 🎯 The Demos
-
-### 🔍 1. Rate Explorer CLI
-
-**Find the best mortgage rates in seconds.**
-
-🎨 **Perfect for**: API newcomers, quick prototypes
-📦 **Dependencies**: Zero (uses native fetch)
-⚡ **Time to run**: 30 seconds
-
-**What you'll learn:**
-- Self-service API key creation (`POST /keys`)
-- Decision engine usage (`POST /v1/decisions`)
-- Credit union lookups (`GET /credit-unions/{state}/{slug}`)
-
-```bash
-node run.js rate-explorer
-```
-
-[**→ Try it**](./rate-explorer/) • [View README](./rate-explorer/README.md)
-
----
-
-### 🔔 2. Webhook Monitor
-
-**Get real-time alerts when mortgage rates drop.**
-
-🎨 **Perfect for**: Building rate alert apps, monitoring competitors
-📦 **Dependencies**: Express
-⚡ **Time to run**: 2 minutes
-
-**What you'll learn:**
-- Creating rate monitors with custom conditions
-- HMAC-SHA256 webhook signature verification (production-ready!)
-- Managing monitor lifecycle (CRUD operations)
-
-```bash
-cd rate-monitor && npm install
-node run.js rate-monitor
-```
-
-[**→ Try it**](./rate-monitor/) • [View README](./rate-monitor/README.md)
-
----
-
-### 🤖 3. AI Agent Integration
-
-**Chat-based mortgage advisor powered by GPT-4 + RateAPI.**
-
-🎨 **Perfect for**: AI apps, chatbots, financial assistants
-📦 **Dependencies**: Optional (works without OpenAI key!)
-⚡ **Time to run**: 1 minute
-
-**What you'll learn:**
-- LLM tool/function calling integration
-- Natural language → structured API queries
-- Mock mode for testing without API costs
-
-```bash
-node run.js rate-agent          # Mock mode (no LLM key needed)
-node run.js rate-agent --real   # Real GPT-4 mode
-```
-
-[**→ Try it**](./rate-agent/) • [View README](./rate-agent/README.md)
-
----
-
-### 📊 4. React Rate Widget
-
-**Embeddable mortgage rate comparison widget for React apps.**
-
-🎨 **Perfect for**: React/Next.js developers, embedding rates on any website
-📦 **Dependencies**: React 18+
-⚡ **Time to run**: 5 minutes
-
-**What you'll learn:**
-- Integrating RateAPI into React applications
-- Custom hooks for data fetching (`useRateAPI`)
-- Building themeable, responsive components
-
-```bash
-cd react-rate-widget && npm install
-RATEAPI_KEY=your-key npm start
-```
-
-[**→ Try it**](./react-rate-widget/) • [View README](./react-rate-widget/README.md)
-
----
-
-### 🧠 5. LangChain Mortgage Agent
-
-**AI-powered mortgage advisor using LangChain + GPT-4.**
-
-🎨 **Perfect for**: AI/ML engineers, chatbot developers, fintech startups
-📦 **Dependencies**: LangChain, OpenAI
-⚡ **Time to run**: 10 minutes
-
-**What you'll learn:**
-- Building AI agents with LangChain
-- Tool calling (function calling) patterns
-- Creating conversational financial assistants
-
-```bash
-cd langchain-mortgage-agent && npm install
-npm run chat      # CLI mode
-npm run web       # Web interface
-```
-
-[**→ Try it**](./langchain-mortgage-agent/) • [View README](./langchain-mortgage-agent/README.md)
-
----
-
-## 📚 API Features Covered
-
-| Feature | Rate Explorer | Webhook Monitor | AI Agent | React Widget | LangChain Agent |
-|---------|:-------------:|:---------------:|:--------:|:------------:|:---------------:|
+|  | Rate Explorer | Webhook Monitor | AI Agent | React Widget | LangChain |
+|--|:--:|:--:|:--:|:--:|:--:|
 | API Key Creation | ✓ | | | | |
 | Decision Engine | ✓ | ✓ | ✓ | ✓ | ✓ |
 | Credit Union Lookup | ✓ | | ✓ | | ✓ |
 | Monitor CRUD | | ✓ | | | |
 | Webhook Verification | | ✓ | | | |
 | LLM Tool Integration | | | ✓ | | ✓ |
-| React Integration | | | | ✓ | |
-| LangChain Tools | | | | | ✓ |
+| React Hooks | | | | ✓ | |
+
+**Start with Rate Explorer** — it auto-creates an API key the other demos will use.
 
 ---
 
-## ⚙️ Configuration
+## 📖 Demo Details
 
-All demos share a common `.env` file:
+### 🔍 1. Rate Explorer
 
-```
-rateapi-demos/
-├── .env                      # Shared config (auto-created by Rate Explorer)
-├── .env.example              # Template
-├── rate-explorer/
-├── rate-monitor/
-├── rate-agent/
-├── react-rate-widget/
-└── langchain-mortgage-agent/
+**Find the best mortgage rates in seconds.** Zero dependencies, just Node.js.
+
+```bash
+node run.js rate-explorer
 ```
 
-### Environment Variables
+**What you'll learn:**
+- Self-service API key creation (`POST /keys`)
+- Decision engine (`POST /v1/decisions`)
+- Credit union lookups (`GET /credit-unions/{state}/{slug}`)
 
-| Variable | Required | Description |
-|----------|----------|-------------|
-| `RATEAPI_KEY` | Yes* | Your API key (*auto-created by Rate Explorer) |
-| `RATEAPI_URL` | No | Override API URL (default: `https://api.rateapi.dev`) |
-| `OPENAI_API_KEY` | No | For AI Agent real mode |
-
----
-
-## 📋 Requirements
-
-- **Node.js 18+** (uses native fetch)
-- **npm** (for Webhook Monitor dependencies only)
+[View source →](./rate-explorer/)
 
 ---
 
-## 🔗 Learn More
+### 🔔 2. Webhook Monitor
 
-- **[RateAPI Platform](https://rateapi.dev)** - Main website and product overview
-- [API Documentation](https://api.rateapi.dev) - Full API reference
-- [Webhook Guide](https://rateapi.dev/webhooks) - Setting up rate alerts
-- [MCP Integration](https://rateapi.dev/mcp) - Claude Desktop & Claude Code setup
-- [OpenAPI Spec](https://api.rateapi.dev/openapi.json) - Machine-readable API spec
+**Get alerts when mortgage rates drop.** Production-ready webhook verification included.
+
+```bash
+cd rate-monitor && npm install
+node server.js
+```
+
+**What you'll learn:**
+- Creating rate monitors with conditions
+- HMAC-SHA256 signature verification
+- Monitor lifecycle (create, list, delete)
+
+[View source →](./rate-monitor/)
+
+---
+
+### 🤖 3. AI Agent
+
+**Chat-based mortgage advisor.** Works without OpenAI key (mock mode).
+
+```bash
+node run.js rate-agent          # Mock mode
+node run.js rate-agent --real   # GPT-4 mode (needs OPENAI_API_KEY)
+```
+
+**What you'll learn:**
+- LLM function/tool calling
+- Natural language → API queries
+- Testing AI integrations without API costs
+
+[View source →](./rate-agent/)
+
+---
+
+### 📊 4. React Widget
+
+**Embeddable rate comparison widget.** Light/dark themes, TypeScript support.
+
+```bash
+cd react-rate-widget && npm install
+RATEAPI_KEY=your-key npm start
+```
+
+**What you'll learn:**
+- React integration patterns
+- Custom hooks (`useRateAPI`)
+- Server-side API key protection
+
+[View source →](./react-rate-widget/)
+
+---
+
+### 🧠 5. LangChain Agent
+
+**Full mortgage advisor with LangChain.** CLI and web interface.
+
+```bash
+cd langchain-mortgage-agent && npm install
+npm run chat      # CLI
+npm run web       # Web UI at localhost:3000
+```
+
+**What you'll learn:**
+- LangChain agent architecture
+- Multi-tool orchestration
+- Conversational AI patterns
+
+[View source →](./langchain-mortgage-agent/)
+
+---
+
+## ⚙️ Setup
+
+All demos share a `.env` file in the root:
+
+```
+RATEAPI_KEY=your-key        # Auto-created by Rate Explorer
+RATEAPI_URL=https://api.rateapi.dev
+OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
+```
+
+**Requirements:** Node.js 18+
+
+---
+
+## 🔗 Resources
+
+- [RateAPI Platform](https://rateapi.dev) — Product overview
+- [API Reference](https://api.rateapi.dev) — Full documentation
+- [MCP Integration](https://rateapi.dev/mcp) — Claude Desktop setup
+- [OpenAPI Spec](https://api.rateapi.dev/openapi.json) — Machine-readable spec
 
 ---
 
 ## 🤝 Contributing
 
-Found a bug? Have an idea for a new demo? PRs welcome!
+PRs welcome! Ideas for new demos:
 
-**Ideas for new demos:**
 - [ ] Telegram bot for rate alerts
-- [ ] Chrome extension for rate tracking
+- [ ] Chrome extension
 - [ ] Google Sheets integration
-- [ ] Python SDK / PyPI package
+- [ ] Python SDK
 
-[Open an issue](https://github.com/holdequity/rateapi-demos/issues) or submit a PR!
+[Open an issue →](https://github.com/holdequity/rateapi-demos/issues)
 
 ---
 
 <p align="center">
-  Built with ❤️ by <a href="https://rateapi.dev">RateAPI</a>
+  Built by <a href="https://rateapi.dev">RateAPI</a>
 </p>
