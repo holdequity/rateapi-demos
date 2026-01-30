@@ -9,6 +9,7 @@
 
 import { spawn } from 'child_process';
 import * as path from 'path';
+import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -20,18 +21,42 @@ const demos = {
     cmd: 'node',
     args: ['rate-explorer.js'],
     setup: null,
+    description: 'Interactive CLI for exploring mortgage rates',
   },
   'rate-monitor': {
     dir: 'rate-monitor',
     cmd: 'node',
     args: ['server.js'],
     setup: 'npm install',
+    description: 'Webhook monitor for rate alerts',
   },
   'rate-agent': {
     dir: 'rate-agent',
     cmd: 'node',
     args: ['rate-agent.js'],
     setup: null,
+    description: 'AI mortgage advisor (mock mode)',
+  },
+  'react-widget': {
+    dir: 'react-rate-widget',
+    cmd: 'npm',
+    args: ['start'],
+    setup: 'npm install',
+    description: 'React rate widget (http://localhost:3000)',
+  },
+  'langchain': {
+    dir: 'langchain-mortgage-agent',
+    cmd: 'npm',
+    args: ['run', 'chat'],
+    setup: 'npm install',
+    description: 'LangChain AI agent (CLI)',
+  },
+  'langchain-web': {
+    dir: 'langchain-mortgage-agent',
+    cmd: 'npm',
+    args: ['run', 'web'],
+    setup: 'npm install',
+    description: 'LangChain AI agent (http://localhost:3000)',
   },
 };
 
@@ -44,19 +69,20 @@ if (!arg || arg === '--help' || arg === '-h') {
 Usage: node run.js <demo-name>
 
 Available demos:
-  \x1b[36mrate-explorer\x1b[0m  - Interactive CLI for exploring mortgage rates
-  \x1b[36mrate-monitor\x1b[0m   - Webhook monitor dashboard (requires npm install)
-  \x1b[36mrate-agent\x1b[0m     - AI-powered mortgage advisor (requires pip install)
+  \x1b[36mrate-explorer\x1b[0m   - Interactive CLI for exploring mortgage rates
+  \x1b[36mrate-monitor\x1b[0m    - Webhook monitor for rate alerts
+  \x1b[36mrate-agent\x1b[0m      - AI mortgage advisor (mock mode, no API key needed)
+  \x1b[36mreact-widget\x1b[0m    - React rate widget (opens http://localhost:3000)
+  \x1b[36mlangchain\x1b[0m       - LangChain AI agent CLI (requires OPENAI_API_KEY)
+  \x1b[36mlangchain-web\x1b[0m   - LangChain AI agent web UI (http://localhost:3000)
+
+Quick start:
+  node run.js rate-explorer     # No setup needed, creates API key for you
 
 Examples:
   node run.js rate-explorer
-  node run.js rate-monitor
-  node run.js rate-agent
-
-Or run directly:
-  cd rate-explorer && node rate-explorer.js
-  cd rate-monitor && npm install && node server.js
-  cd rate-agent && node rate-agent.js
+  node run.js react-widget
+  node run.js langchain-web
 `);
   process.exit(0);
 }
@@ -70,30 +96,53 @@ if (!demo) {
   process.exit(1);
 }
 
-const demoDir = path.join(__dirname, demo.dir);
+// Main async runner
+(async () => {
+  const demoDir = path.join(__dirname, demo.dir);
 
-console.log(`\x1b[1mRunning ${arg} demo...\x1b[0m\n`);
+  // Auto-install dependencies if needed
+  const nodeModulesPath = path.join(demoDir, 'node_modules');
+  if (demo.setup && !fs.existsSync(nodeModulesPath)) {
+    console.log(`\x1b[33mInstalling dependencies for ${arg}...\x1b[0m\n`);
+    const install = spawn('npm', ['install'], {
+      cwd: demoDir,
+      stdio: 'inherit',
+      shell: true,
+    });
 
-// Run the demo
-const child = spawn(demo.cmd, demo.args, {
-  cwd: demoDir,
-  stdio: 'inherit',
-  shell: true,
-});
-
-child.on('error', (err) => {
-  if (err.code === 'ENOENT') {
-    console.error(`\x1b[31mCommand not found: ${demo.cmd}\x1b[0m`);
-    if (demo.setup) {
-      console.error(`\nTry running setup first:`);
-      console.error(`  cd ${demo.dir} && ${demo.setup}`);
-    }
-  } else {
-    console.error(`\x1b[31mError: ${err.message}\x1b[0m`);
+    await new Promise((resolve, reject) => {
+      install.on('close', (code) => {
+        if (code === 0) resolve();
+        else reject(new Error(`npm install failed with code ${code}`));
+      });
+      install.on('error', reject);
+    });
+    console.log('');
   }
-  process.exit(1);
-});
 
-child.on('close', (code) => {
-  process.exit(code || 0);
-});
+  console.log(`\x1b[1mRunning ${arg} demo...\x1b[0m\n`);
+
+  // Run the demo
+  const child = spawn(demo.cmd, demo.args, {
+    cwd: demoDir,
+    stdio: 'inherit',
+    shell: true,
+  });
+
+  child.on('error', (err) => {
+    if (err.code === 'ENOENT') {
+      console.error(`\x1b[31mCommand not found: ${demo.cmd}\x1b[0m`);
+      if (demo.setup) {
+        console.error(`\nTry running setup first:`);
+        console.error(`  cd ${demo.dir} && ${demo.setup}`);
+      }
+    } else {
+      console.error(`\x1b[31mError: ${err.message}\x1b[0m`);
+    }
+    process.exit(1);
+  });
+
+  child.on('close', (code) => {
+    process.exit(code || 0);
+  });
+})();

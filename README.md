@@ -1,8 +1,11 @@
 # 🏦 RateAPI Demos
 
 <p align="center">
-  <b>One API for every mortgage rate in America</b><br>
-  Real-time data from 4,000+ credit unions • Self-contained examples • Zero config
+  <b>2,900+ credit union mortgage rates. One API call.</b>
+</p>
+
+<p align="center">
+  <img src="./assets/live-api-data.png" alt="RateAPI Live Data - 34,930 rates from 2,918 credit unions" width="700" />
 </p>
 
 <p align="center">
