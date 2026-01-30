@@ -14,6 +14,8 @@ export const compareRates = tool(
     }
 
     try {
+      const termMonths = productType === '15-year-fixed' ? 180 : 360;
+
       // Fetch rates for each state in parallel
       const results = await Promise.all(
         states.map(async (state) => {
@@ -25,12 +27,22 @@ export const compareRates = tool(
                 'Content-Type': 'application/json',
               },
               body: JSON.stringify({
-                state,
-                intent: 'purchase',
-                amount: loanAmount || 500000,
-                product_type: 'mortgage',
-                term_months: productType === '15-year-fixed' ? 180 : 360,
-                max_providers: 1, // Just get the best rate for comparison
+                decision_type: 'financing',
+                context: {
+                  request_id: `compare_${state}_${Date.now()}`,
+                  geo: { state }
+                },
+                product_request: {
+                  product_type: 'mortgage',
+                  intent: 'purchase',
+                  amount: loanAmount || 500000,
+                  term_months: termMonths,
+                  rate_type: 'fixed'
+                },
+                preferences: {
+                  max_providers: 1,
+                  prefer_credit_unions: true
+                }
               }),
             });
 
@@ -39,30 +51,20 @@ export const compareRates = tool(
             }
 
             const data = await response.json();
-            const best = data.recommendations?.[0];
+            const best = data.actions?.[0]?.offers?.[0];
 
             if (!best) {
               return { state, error: 'No rates found' };
             }
 
-            // Calculate monthly payment for comparison
-            const monthlyRate = best.rate / 100 / 12;
-            const principal = loanAmount || 500000;
-            const termMonths = productType === '15-year-fixed' ? 180 : 360;
-            const monthlyPayment = monthlyRate === 0
-              ? principal / termMonths
-              : principal * (monthlyRate * Math.pow(1 + monthlyRate, termMonths)) /
-                (Math.pow(1 + monthlyRate, termMonths) - 1);
-
             return {
               state,
               bestRate: {
-                institution: best.provider_name,
-                city: best.city,
+                institution: best.credit_union_name,
                 rate: best.rate,
                 apr: best.apr,
                 points: best.points || 0,
-                monthlyPayment: Math.round(monthlyPayment * 100) / 100,
+                monthlyPayment: best.monthly_payment,
               },
             };
           } catch (error) {

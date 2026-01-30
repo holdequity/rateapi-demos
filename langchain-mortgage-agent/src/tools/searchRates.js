@@ -14,7 +14,9 @@ export const searchRates = tool(
     }
 
     try {
-      // Use the decision engine for personalized recommendations
+      const termMonths = productType === '15-year-fixed' ? 180 : 360;
+
+      // Use the new decision engine format
       const response = await fetch(`${RATEAPI_URL}/v1/decisions`, {
         method: 'POST',
         headers: {
@@ -22,12 +24,22 @@ export const searchRates = tool(
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          state,
-          intent: intent || 'purchase',
-          amount: loanAmount || 500000,
-          product_type: 'mortgage',
-          term_months: productType === '15-year-fixed' ? 180 : 360,
-          max_providers: 5,
+          decision_type: 'financing',
+          context: {
+            request_id: `search_${Date.now()}`,
+            geo: { state }
+          },
+          product_request: {
+            product_type: 'mortgage',
+            intent: intent || 'purchase',
+            amount: loanAmount || 500000,
+            term_months: termMonths,
+            rate_type: 'fixed'
+          },
+          preferences: {
+            max_providers: 5,
+            prefer_credit_unions: true
+          }
         }),
       });
 
@@ -38,22 +50,25 @@ export const searchRates = tool(
 
       const data = await response.json();
 
+      // Extract offers from the new response format
+      const offers = data.actions?.[0]?.offers || [];
+
       // Format the results for the AI
       const formattedResults = {
         state,
         productType: productType || '30-year-fixed',
         loanAmount: loanAmount || 500000,
-        resultCount: data.recommendations?.length || 0,
-        recommendations: data.recommendations?.map((rec, i) => ({
-          rank: i + 1,
-          institution: rec.provider_name,
-          city: rec.city,
-          rate: rec.rate,
-          apr: rec.apr,
-          points: rec.points || 0,
-          monthlyPayment: rec.monthly_payment,
-        })) || [],
-        recommendation: data.recommendation,
+        resultCount: offers.length,
+        recommendations: offers.map((offer) => ({
+          rank: offer.rank,
+          institution: offer.credit_union_name,
+          rate: offer.rate,
+          apr: offer.apr,
+          points: offer.points || 0,
+          monthlyPayment: offer.monthly_payment,
+          savings: offer.estimated_monthly_savings,
+        })),
+        summary: data.summary,
         generatedAt: new Date().toISOString(),
       };
 

@@ -32,7 +32,7 @@ app.get('/api/rates', async (req, res) => {
   try {
     const { state, limit = 5 } = req.query;
 
-    // Use the decisions endpoint to get rate recommendations
+    // Use the new decisions endpoint format
     const response = await fetch(`${RATEAPI_URL}/v1/decisions`, {
       method: 'POST',
       headers: {
@@ -40,12 +40,22 @@ app.get('/api/rates', async (req, res) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        state: state || 'CA',
-        intent: 'purchase',
-        amount: 500000,
-        product_type: 'mortgage',
-        term_months: 360,
-        max_providers: parseInt(limit, 10),
+        decision_type: 'financing',
+        context: {
+          request_id: `widget_${Date.now()}`,
+          geo: { state: state || 'CA' }
+        },
+        product_request: {
+          product_type: 'mortgage',
+          intent: 'purchase',
+          amount: 500000,
+          term_months: 360,
+          rate_type: 'fixed'
+        },
+        preferences: {
+          max_providers: parseInt(limit, 10),
+          prefer_credit_unions: true
+        }
       }),
     });
 
@@ -56,15 +66,16 @@ app.get('/api/rates', async (req, res) => {
 
     const data = await response.json();
 
-    // Transform to widget-friendly format
-    const results = (data.recommendations || []).map((rec) => ({
-      institution: rec.provider_name,
-      city: rec.city || '',
-      state: rec.state || state || 'CA',
-      rate: rec.rate,
-      apr: rec.apr,
-      points: rec.points || 0,
-      monthlyPayment: rec.monthly_payment,
+    // Transform from new response format to widget-friendly format
+    const offers = data.actions?.[0]?.offers || [];
+    const results = offers.map((offer) => ({
+      institution: offer.credit_union_name,
+      city: '',
+      state: offer.state || state || 'CA',
+      rate: offer.rate,
+      apr: offer.apr,
+      points: offer.points || 0,
+      monthlyPayment: offer.monthly_payment,
     }));
 
     res.json({ results });
