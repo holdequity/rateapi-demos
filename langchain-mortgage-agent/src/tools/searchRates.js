@@ -68,14 +68,14 @@ export const searchRates = tool(
     schema: z.object({
       state: z.string().length(2).describe('US state code (e.g., "CA", "NY", "TX")'),
       productType: z.enum(['30-year-fixed', '15-year-fixed', '5-1-arm', '7-1-arm'])
-        .optional()
-        .describe('Type of mortgage product. Defaults to 30-year-fixed'),
+        .default('30-year-fixed')
+        .describe('Type of mortgage product'),
       loanAmount: z.number()
-        .optional()
-        .describe('Loan amount in dollars. Defaults to $500,000'),
+        .default(500000)
+        .describe('Loan amount in dollars'),
       intent: z.enum(['purchase', 'refinance'])
-        .optional()
-        .describe('Whether this is for a purchase or refinance. Defaults to purchase'),
+        .default('purchase')
+        .describe('Whether this is for a purchase or refinance'),
     }),
   }
 );

@@ -118,11 +118,11 @@ export const compareRates = tool(
         .max(10)
         .describe('Array of US state codes to compare (e.g., ["CA", "NY", "TX"])'),
       productType: z.enum(['30-year-fixed', '15-year-fixed'])
-        .optional()
-        .describe('Type of mortgage to compare. Defaults to 30-year-fixed'),
+        .default('30-year-fixed')
+        .describe('Type of mortgage to compare'),
       loanAmount: z.number()
-        .optional()
-        .describe('Loan amount for payment calculations. Defaults to $500,000'),
+        .default(500000)
+        .describe('Loan amount for payment calculations'),
     }),
   }
 );

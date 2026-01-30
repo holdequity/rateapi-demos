@@ -124,7 +124,13 @@ async function chat() {
       }
 
       // Update conversation history (keep last 10 exchanges to manage context length)
-      // We store the raw messages from the result for context
+      // Store the messages from the result for context continuity
+      if (result.messages) {
+        // Add user message and assistant response to history
+        conversationHistory.push(...result.messages.slice(1)); // Skip system message
+      }
+
+      // Trim history if too long
       if (conversationHistory.length > 20) {
         conversationHistory.splice(0, 4); // Remove oldest exchange
       }
