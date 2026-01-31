@@ -19,7 +19,7 @@
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Demos](https://img.shields.io/badge/demos-5-orange)
-[![Add to Discord](https://img.shields.io/badge/Discord_Bot-Add_to_Server-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1467002089208283217)
+[![Discord Bot](https://img.shields.io/badge/Discord_Bot-View_Docs-5865F2?logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
 
 ```bash
@@ -39,7 +39,7 @@ node run.js rate-explorer  # Auto-creates API key, shows live rates
 | [**AI Agent**](#-3-ai-agent) | Add to chatbots/assistants | 1 min |
 | [**React Widget**](#-4-react-widget) | Embed in React apps | 5 min |
 | [**LangChain Agent**](#-5-langchain-agent) | Build AI mortgage advisors | 10 min |
-| [**Discord Bot**](#-6-discord-bot) | Community rate alerts | [Add to Server](https://discord.com/oauth2/authorize?client_id=1467002089208283217) |
+| [**Discord Bot**](#-6-discord-bot) | Community rate alerts | [View Docs](https://rateapi.dev/discord-bot) |
 
 ### API Coverage by Demo
 
@@ -151,22 +151,22 @@ npm run web       # Web UI at localhost:3000
 
 ### 💬 6. Discord Bot
 
-**Get mortgage rates without leaving Discord.** Free hosted bot - just add to your server.
+**Get mortgage rates without leaving Discord.** Free hosted bot with rate alerts and natural language queries.
 
-[![Add to Discord](https://img.shields.io/badge/Add_to_Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1467002089208283217)
+[![View Documentation](https://img.shields.io/badge/View_Documentation-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 
-**Commands:**
-- `/rates [state] [amount]` — Get current mortgage rates for a state and loan amount
-- `/alert [state] [amount] [threshold]` — Get notified when rates drop below your threshold
-- `/alerts` — List all rate alerts in your server
-- `/delete-alert [id]` — Remove an alert
+**Highlights:**
+- Real-time rate comparisons across thousands of credit unions
+- Rate drop alerts — get notified when rates hit your target
+- Natural language queries — ask questions in plain English
+- No API key needed, no rate limits, free to use
 
 **Perfect for:**
 - Real estate investing Discord communities
 - Personal finance servers
 - Mortgage professional groups
 
-No API key needed. Just click "Add to Server" above.
+[Read the full documentation](https://rateapi.dev/discord-bot) to see all commands and add the bot to your server.
 
 ---
 
@@ -188,6 +188,7 @@ OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
 
 - [RateAPI Platform](https://rateapi.dev) — Product overview
 - [API Reference](https://api.rateapi.dev) — Full documentation
+- [Discord Bot](https://rateapi.dev/discord-bot) — Add to your server
 - [MCP Integration](https://rateapi.dev/mcp) — Claude Desktop setup
 - [OpenAPI Spec](https://api.rateapi.dev/openapi.json) — Machine-readable spec
 
