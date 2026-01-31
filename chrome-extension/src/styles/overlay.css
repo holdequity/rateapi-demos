@@ -1,0 +1,25 @@
+/**
+ * Global styles for the RateAPI Chrome Extension
+ *
+ * These styles are injected into the host page but shouldn't affect
+ * the host page's styles since our component uses Shadow DOM.
+ *
+ * This file is mainly for any global resets or utility styles needed
+ * outside of the web component.
+ */
+
+/* Prevent any inherited styles from affecting our overlay container */
+rateapi-overlay {
+  all: initial;
+  display: block;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #1f2937;
+}
+
+/* Ensure our overlay is always on top */
+rateapi-overlay {
+  position: relative;
+  z-index: 999999;
+}

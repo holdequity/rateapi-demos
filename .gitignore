@@ -4,6 +4,9 @@
 # Node modules
 node_modules/
 
+# Build artifacts
+chrome-extension/dist/
+
 # Python
 __pycache__/
 *.pyc

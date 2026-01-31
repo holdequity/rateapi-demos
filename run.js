@@ -58,6 +58,13 @@ const demos = {
     setup: 'npm install',
     description: 'LangChain AI agent (http://localhost:3000)',
   },
+  'chrome-extension': {
+    dir: 'chrome-extension',
+    cmd: 'npm',
+    args: ['run', 'dev'],
+    setup: 'npm install',
+    description: 'Chrome extension with local proxy server',
+  },
 };
 
 const arg = process.argv[2];
@@ -69,12 +76,13 @@ if (!arg || arg === '--help' || arg === '-h') {
 Usage: node run.js <demo-name>
 
 Available demos:
-  \x1b[36mrate-explorer\x1b[0m   - Interactive CLI for exploring mortgage rates
-  \x1b[36mrate-monitor\x1b[0m    - Webhook monitor for rate alerts
-  \x1b[36mrate-agent\x1b[0m      - AI mortgage advisor (mock mode, no API key needed)
-  \x1b[36mreact-widget\x1b[0m    - React rate widget (opens http://localhost:3000)
-  \x1b[36mlangchain\x1b[0m       - LangChain AI agent CLI (requires OPENAI_API_KEY)
-  \x1b[36mlangchain-web\x1b[0m   - LangChain AI agent web UI (http://localhost:3000)
+  \x1b[36mrate-explorer\x1b[0m     - Interactive CLI for exploring mortgage rates
+  \x1b[36mrate-monitor\x1b[0m      - Webhook monitor for rate alerts
+  \x1b[36mrate-agent\x1b[0m        - AI mortgage advisor (mock mode, no API key needed)
+  \x1b[36mreact-widget\x1b[0m      - React rate widget (opens http://localhost:3000)
+  \x1b[36mlangchain\x1b[0m         - LangChain AI agent CLI (requires OPENAI_API_KEY)
+  \x1b[36mlangchain-web\x1b[0m     - LangChain AI agent web UI (http://localhost:3000)
+  \x1b[36mchrome-extension\x1b[0m  - Chrome extension + local proxy (http://localhost:3000)
 
 Quick start:
   node run.js rate-explorer     # No setup needed, creates API key for you

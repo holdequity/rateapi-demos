@@ -18,7 +18,7 @@
 
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
-![Demos](https://img.shields.io/badge/demos-5-orange)
+![Demos](https://img.shields.io/badge/demos-7-orange)
 [![Discord Bot](https://img.shields.io/badge/Discord_Bot-View_Docs-5865F2?logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
 [![GitHub stars](https://img.shields.io/github/stars/rate-api/demos?style=social)](https://github.com/rate-api/demos/stargazers)
@@ -51,18 +51,21 @@ node run.js rate-explorer  # Auto-creates API key, shows live rates
 | [**React Widget**](#-4-react-widget) | Embed in React apps | 5 min |
 | [**LangChain Agent**](#-5-langchain-agent) | Build AI mortgage advisors | 10 min |
 | [**Discord Bot**](#-6-discord-bot) | Community rate alerts | [View Docs](https://rateapi.dev/discord-bot) |
+| [**Chrome Extension**](#-7-chrome-extension) | Rates on Zillow/Redfin/Realtor.com | 2 min |
 
 ### API Coverage by Demo
 
-|  | Rate Explorer | Webhook Monitor | AI Agent | React Widget | LangChain |
-|--|:--:|:--:|:--:|:--:|:--:|
-| API Key Creation | ✓ | | | | |
-| Decision Engine | ✓ | ✓ | ✓ | ✓ | ✓ |
-| Credit Union Lookup | ✓ | | ✓ | | ✓ |
-| Monitor CRUD | | ✓ | | | |
-| Webhook Verification | | ✓ | | | |
-| LLM Tool Integration | | | ✓ | | ✓ |
-| React Hooks | | | | ✓ | |
+|  | Rate Explorer | Webhook Monitor | AI Agent | React Widget | LangChain | Discord | Chrome Ext |
+|--|:--:|:--:|:--:|:--:|:--:|:--:|:--:|
+| API Key Creation | ✓ | | | | | | |
+| Decision Engine | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |
+| Credit Union Lookup | ✓ | | ✓ | | ✓ | ✓ | |
+| Monitor CRUD | | ✓ | | | | | |
+| Webhook Verification | | ✓ | | | | | |
+| LLM Tool Integration | | | ✓ | | ✓ | | |
+| React Hooks | | | | ✓ | | | |
+| Web Components | | | | | | | ✓ |
+| Content Injection | | | | | | | ✓ |
 
 **Start with Rate Explorer** — it auto-creates an API key the other demos will use.
 
@@ -181,6 +184,36 @@ npm run web       # Web UI at localhost:3000
 
 ---
 
+### 🔌 7. Chrome Extension
+
+**See credit union rates while browsing Zillow, Redfin & Realtor.com.** Includes local proxy server.
+
+```bash
+node run.js chrome-extension
+# Then load unpacked extension in chrome://extensions
+```
+
+**What you'll learn:**
+- Chrome Manifest V3 extension architecture
+- Lit web components with Shadow DOM for style isolation
+- Site-specific DOM scraping and content injection
+- Background service workers for API communication
+- Bridge pattern for MAIN/ISOLATED world messaging
+- Cloudflare Worker proxy for API key protection
+
+**Key features:**
+- Auto-detects property listings on Zillow, Redfin, and Realtor.com
+- Extracts price and location from page DOM using site-specific selectors
+- Displays floating overlay with best credit union rates
+- Shows potential monthly savings vs national average
+- Expandable to show top 5 credit union offers
+- In-memory caching to reduce API calls
+- Demo mode with realistic sample data (no API key needed)
+
+[View source →](./chrome-extension/)
+
+---
+
 ## 🌟 Built With RateAPI
 
 Projects and integrations built by the community:
@@ -220,10 +253,12 @@ OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
 PRs welcome! Ideas for new demos:
 
 - [x] Discord bot for rate alerts
+- [x] Chrome extension for real estate sites
 - [ ] Telegram bot for rate alerts
-- [ ] Chrome extension
 - [ ] Google Sheets integration
 - [ ] Python SDK
+- [ ] Slack bot for team notifications
+- [ ] Firefox extension (port from Chrome)
 
 [Open an issue →](https://github.com/rate-api/demos/issues)
 
