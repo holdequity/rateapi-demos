@@ -16,11 +16,12 @@
   "homepage": "https://rateapi.dev",
   "repository": {
     "type": "git",
-    "url": "https://github.com/holdequity/rateapi-demos.git"
+    "url": "https://github.com/rate-api/demos.git"
   },
   "bugs": {
-    "url": "https://github.com/holdequity/rateapi-demos/issues"
+    "url": "https://github.com/rate-api/demos/issues"
   },
+  "author": "Hold Equity Inc. <kameronkales@gmail.com>",
   "type": "module",
   "scripts": {
     "rate-explorer": "cd rate-explorer && node rate-explorer.js",

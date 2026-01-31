@@ -21,12 +21,23 @@
 ![Demos](https://img.shields.io/badge/demos-5-orange)
 [![Discord Bot](https://img.shields.io/badge/Discord_Bot-View_Docs-5865F2?logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
+[![GitHub stars](https://img.shields.io/github/stars/rate-api/demos?style=social)](https://github.com/rate-api/demos/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/rate-api/demos?style=social)](https://github.com/rate-api/demos/network/members)
 
 ```bash
-git clone https://github.com/holdequity/rateapi-demos.git
+git clone https://github.com/rate-api/demos.git
 cd rateapi-demos
 node run.js rate-explorer  # Auto-creates API key, shows live rates
 ```
+
+---
+
+## Why RateAPI?
+
+- **4,000+ credit unions** — Complete coverage of US credit union mortgage rates
+- **Real-time data** — Rates updated continuously, not daily scrapes
+- **Production-ready** — Webhooks, monitoring, SDKs included
+- **Free to start** — Self-service API key creation, no sales calls
 
 ---
 
@@ -170,6 +181,16 @@ npm run web       # Web UI at localhost:3000
 
 ---
 
+## 🌟 Built With RateAPI
+
+Projects and integrations built by the community:
+
+- *Your project here!* — [Submit a PR](https://github.com/rate-api/demos/pulls) to showcase your integration
+
+Using RateAPI in production? We'd love to feature your project.
+
+---
+
 ## ⚙️ Setup
 
 All demos share a `.env` file in the root:
@@ -204,7 +225,7 @@ PRs welcome! Ideas for new demos:
 - [ ] Google Sheets integration
 - [ ] Python SDK
 
-[Open an issue →](https://github.com/holdequity/rateapi-demos/issues)
+[Open an issue →](https://github.com/rate-api/demos/issues)
 
 ---
 
