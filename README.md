@@ -19,6 +19,7 @@
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Demos](https://img.shields.io/badge/demos-5-orange)
+[![Add to Discord](https://img.shields.io/badge/Discord_Bot-Add_to_Server-5865F2?logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1467002089208283217)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
 
 ```bash
@@ -38,6 +39,7 @@ node run.js rate-explorer  # Auto-creates API key, shows live rates
 | [**AI Agent**](#-3-ai-agent) | Add to chatbots/assistants | 1 min |
 | [**React Widget**](#-4-react-widget) | Embed in React apps | 5 min |
 | [**LangChain Agent**](#-5-langchain-agent) | Build AI mortgage advisors | 10 min |
+| [**Discord Bot**](#-6-discord-bot) | Community rate alerts | [Add to Server](https://discord.com/oauth2/authorize?client_id=1467002089208283217) |
 
 ### API Coverage by Demo
 
@@ -147,6 +149,27 @@ npm run web       # Web UI at localhost:3000
 
 ---
 
+### 💬 6. Discord Bot
+
+**Get mortgage rates without leaving Discord.** Free hosted bot - just add to your server.
+
+[![Add to Discord](https://img.shields.io/badge/Add_to_Server-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://discord.com/oauth2/authorize?client_id=1467002089208283217)
+
+**Commands:**
+- `/rates [state] [amount]` — Get current mortgage rates for a state and loan amount
+- `/alert [state] [amount] [threshold]` — Get notified when rates drop below your threshold
+- `/alerts` — List all rate alerts in your server
+- `/delete-alert [id]` — Remove an alert
+
+**Perfect for:**
+- Real estate investing Discord communities
+- Personal finance servers
+- Mortgage professional groups
+
+No API key needed. Just click "Add to Server" above.
+
+---
+
 ## ⚙️ Setup
 
 All demos share a `.env` file in the root:
@@ -174,6 +197,7 @@ OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
 
 PRs welcome! Ideas for new demos:
 
+- [x] Discord bot for rate alerts
 - [ ] Telegram bot for rate alerts
 - [ ] Chrome extension
 - [ ] Google Sheets integration
