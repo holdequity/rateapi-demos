@@ -107,7 +107,7 @@ Unlike the real estate site integrations, ProjectionLab shows refinance-specific
 
 The demo works with mock data by default. To test with real RateAPI calls:
 
-1. **Get an API key:** [https://api.rateapi.dev](https://api.rateapi.dev) (free tier available)
+1. **Get an API key:** [https://rateapi.dev](https://rateapi.dev) (free tier available)
 
 2. **Configure the proxy:**
    ```bash
@@ -370,7 +370,7 @@ Open DevTools Console, look for:
 This means the local proxy server isn't running or isn't configured with a RateAPI key.
 
 **To use live data:**
-1. Get API key from `https://api.rateapi.dev`
+1. Get API key from `https://rateapi.dev`
 2. Run: `RATEAPI_KEY=your-key npm run server` in `chrome-extension/`
 3. Reload ProjectionLab page
 
@@ -593,8 +593,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 
 ## Developer Resources
 
-- [RateAPI Documentation](https://docs.rateapi.dev) - API reference and guides
-- [Get API Key](https://api.rateapi.dev) - Sign up for API access
+- [RateAPI Documentation and Signup](https://rateapi.dev) - API reference and access
 - [Extension Source Code](https://github.com/rate-api/demos/tree/main/chrome-extension) - Full implementation
 - [Report Issues](https://github.com/rate-api/demos/issues) - Bugs and questions
 - [ProjectionLab](https://projectionlab.com) - The financial planning app (not affiliated)

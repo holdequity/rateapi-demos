@@ -54,11 +54,7 @@ The demo includes an Express server that keeps your API key server-side.
 
 ### Get an API Key
 
-```bash
-curl -X POST https://api.rateapi.dev/keys \
-  -H "Content-Type: application/json" \
-  -d '{"email": "you@example.com"}'
-```
+Sign up at [https://rateapi.dev](https://rateapi.dev) to get your API key.
 
 ---
 
@@ -273,8 +269,7 @@ Copy these patterns into your own projects:
 
 ## Learn More
 
-- **[RateAPI Platform](https://rateapi.dev)** - Full documentation
-- **[API Reference](https://api.rateapi.dev)** - Decision engine endpoints
+- **[RateAPI Platform](https://rateapi.dev)** - Documentation and API access
 
 ## 📄 License
 

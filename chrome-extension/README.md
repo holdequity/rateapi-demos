@@ -16,7 +16,7 @@ This is a **developer demo** showcasing how to integrate RateAPI's mortgage rate
 - Client-side API proxy patterns
 - SPA navigation handling in content scripts
 
-**Get Started:** Get your free RateAPI key at [https://api.rateapi.dev](https://api.rateapi.dev) and start building.
+**Get Started:** Get your free RateAPI key at [https://rateapi.dev](https://rateapi.dev) and start building.
 
 ## Demo Screenshots - API Integration Examples
 
@@ -169,7 +169,7 @@ The proxy server runs at `http://localhost:3000` and demonstrates how to proxy R
 RATEAPI_KEY=your-api-key-here
 ```
 
-**Get your API key:** Sign up at [https://api.rateapi.dev](https://api.rateapi.dev) for free access to the Decision Engine.
+**Get your API key:** Sign up at [https://rateapi.dev](https://rateapi.dev) for free access to the Decision Engine.
 
 Or run the rate-explorer demo first to auto-create an API key:
 ```bash
@@ -534,7 +534,7 @@ POST https://api.rateapi.dev/v1/decisions
 X-API-Key: your-api-key-here
 ```
 
-Get your free API key at [https://api.rateapi.dev](https://api.rateapi.dev)
+Get your free API key at [https://rateapi.dev](https://rateapi.dev)
 
 ### Request Example
 
@@ -826,7 +826,7 @@ This demo is designed to be forked and customized for your own use case. Here ar
 
 If you want to publish your own version:
 
-1. Get your own RateAPI key at [https://api.rateapi.dev](https://api.rateapi.dev)
+1. Get your own RateAPI key at [https://rateapi.dev](https://rateapi.dev)
 2. Deploy the proxy worker to Cloudflare (see Production Setup section)
 3. Update branding in manifest.json and icons
 4. Consider Chrome Web Store publishing if targeting end users
@@ -872,8 +872,7 @@ This is open source example code in the RateAPI demos repository. Contributions 
 
 **For API Support:**
 - RateAPI questions: [Email support@rateapi.dev](mailto:support@rateapi.dev)
-- API documentation: [https://docs.rateapi.dev](https://docs.rateapi.dev)
-- Get an API key: [https://api.rateapi.dev](https://api.rateapi.dev)
+- API documentation and signup: [https://rateapi.dev](https://rateapi.dev)
 
 ## About This Demo
 

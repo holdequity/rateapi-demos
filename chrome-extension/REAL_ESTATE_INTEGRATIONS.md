@@ -320,8 +320,7 @@ Choose the pattern that fits your architecture.
 
 - [Chrome Extension README](./README.md) - Full setup and architecture guide
 - [ProjectionLab Integration](./PROJECTIONLAB_INTEGRATION.md) - Refinance pattern examples
-- [RateAPI Documentation](https://docs.rateapi.dev) - API reference
-- [Get API Key](https://api.rateapi.dev) - Sign up for access
+- [RateAPI Documentation and Signup](https://rateapi.dev) - API reference and access
 - [Demo Repository](https://github.com/rate-api/demos) - Full source code
 
 ---

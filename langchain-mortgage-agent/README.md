@@ -77,11 +77,7 @@ RATEAPI_KEY=your-rateapi-key   # Required: Your RateAPI key
 
 ### Get a RateAPI Key
 
-```bash
-curl -X POST https://api.rateapi.dev/keys \
-  -H "Content-Type: application/json" \
-  -d '{"email": "you@example.com"}'
-```
+Sign up at [https://rateapi.dev](https://rateapi.dev) to get your API key.
 
 ### 3. Run the Agent
 
@@ -372,7 +368,6 @@ services:
 
 ### RateAPI Resources
 - [RateAPI Website](https://rateapi.dev)
-- [API Reference](https://api.rateapi.dev)
 
 ---
 

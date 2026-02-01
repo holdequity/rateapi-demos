@@ -12,7 +12,7 @@
   <a href="#-pick-your-demo">Pick a Demo</a> •
   <a href="#-demo-details">Demo Details</a> •
   <a href="https://rateapi.dev">Documentation</a> •
-  <a href="https://api.rateapi.dev">Get API Key</a>
+  <a href="https://rateapi.dev">Get API Key</a>
 </p>
 
 ---
@@ -20,7 +20,7 @@
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Demos](https://img.shields.io/badge/demos-7-orange)
-[![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
+[![API Status](https://img.shields.io/badge/API-live-success)](https://rateapi.dev)
 [![GitHub stars](https://img.shields.io/github/stars/rate-api/demos?style=social)](https://github.com/rate-api/demos/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/rate-api/demos?style=social)](https://github.com/rate-api/demos/network/members)
 
@@ -45,7 +45,7 @@ These demos show integration patterns for:
 - **Monitoring & Alerts** — Webhook-powered rate drop notifications
 - **Browser Extensions** — Contextual rate overlays on real estate sites
 
-**Get your free API key:** [https://api.rateapi.dev](https://api.rateapi.dev)
+**Get your free API key:** [https://rateapi.dev](https://rateapi.dev)
 
 ---
 
@@ -260,11 +260,9 @@ OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
 
 ## 🔗 Resources
 
-- [RateAPI Platform](https://rateapi.dev) — Product overview
-- [API Reference](https://api.rateapi.dev) — Full documentation
+- [RateAPI Platform](https://rateapi.dev) — Product overview and API access
 - [Discord Bot](https://rateapi.dev/discord-bot) — Add to your server
 - [MCP Integration](https://rateapi.dev/mcp) — Claude Desktop setup
-- [OpenAPI Spec](https://api.rateapi.dev/openapi.json) — Machine-readable spec
 
 ---
 
