@@ -1,8 +1,8 @@
-# 📊 React Rate Widget
+# React Rate Widget Demo
 
 <p align="center">
-  <b>Embeddable mortgage rate comparison widget for React apps</b><br>
-  Real-time rates from 4,000+ credit unions • Light/Dark themes • Customizable
+  <b>Reference implementation for building mortgage rate UI components with React</b><br>
+  Demonstrates: API proxy patterns, custom hooks, theming, state management
 </p>
 
 <p align="center">
@@ -10,6 +10,17 @@
   <img src="https://img.shields.io/badge/typescript-supported-blue" alt="TypeScript" />
   <img src="https://img.shields.io/badge/license-MIT-green" alt="MIT License" />
 </p>
+
+> **For Developers:** This is working React code you can copy into your own projects. Learn how to build rate comparison UIs with proper API key protection.
+
+---
+
+## Use This Pattern For
+
+- **Real estate platforms** - Embed rate widgets on property listings
+- **Mortgage comparison sites** - Build custom rate comparison tables
+- **Financial dashboards** - Add rate data to wealth management tools
+- **White-label solutions** - Reskinnable rate components for partners
 
 ---
 
@@ -251,6 +262,20 @@ function CustomRateDisplay() {
 
 ---
 
+## Code You Can Reuse
+
+Copy these patterns into your own projects:
+
+- `useRateAPI` hook - Reusable data fetching with loading/error states
+- Backend proxy pattern - Server-side API key protection
+- Theme system - CSS variables for light/dark mode
+- TypeScript types - Full type definitions for rate data
+
+## Learn More
+
+- **[RateAPI Platform](https://rateapi.dev)** - Full documentation
+- **[API Reference](https://api.rateapi.dev)** - Decision engine endpoints
+
 ## 📄 License
 
 MIT
@@ -258,5 +283,5 @@ MIT
 ---
 
 <p align="center">
-  Built with ❤️ by <a href="https://rateapi.dev">RateAPI</a>
+  Part of <a href="https://github.com/rate-api/demos">RateAPI Demos</a> — reference implementations for developers
 </p>

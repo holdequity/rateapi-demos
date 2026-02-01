@@ -1,6 +1,8 @@
 # Rate Explorer CLI
 
-Interactive CLI demo that showcases the [RateAPI](https://rateapi.dev) decision engine. Get personalized mortgage rate recommendations in seconds.
+**Reference implementation** showing how to interact with the [RateAPI](https://rateapi.dev) decision engine from the command line. Use this code to understand API key creation, the decision engine, and credit union lookups.
+
+> **For Developers:** This is working code you can fork, learn from, and adapt for your own mortgage rate applications.
 
 ## Quick Start
 
@@ -60,6 +62,21 @@ Top 5 Offers:
 
 - Node.js 18+ (uses native fetch)
 - No external dependencies!
+
+## Use This Pattern For
+
+- **CLI tools** - Internal tools for mortgage teams
+- **Scripts** - Automated rate data collection
+- **Testing** - Validate API integration before building UI
+- **Prototyping** - Quickly test rate queries
+
+## Code You Can Reuse
+
+Copy these patterns into your own projects:
+
+- `createApiKey()` - Self-service key provisioning
+- `getDecision()` - Core rate recommendation logic
+- `getCreditUnion()` - Provider detail lookups
 
 ## Learn More
 

@@ -171,6 +171,23 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     });
     return true;
   }
+
+  if (message.action === 'saveState') {
+    const { state } = message;
+    chrome.storage.local.set({ userState: state }, () => {
+      console.log('[RateAPI] Saved user state:', state);
+      sendResponse({ success: true, state });
+    });
+    return true;
+  }
+
+  if (message.action === 'getState') {
+    chrome.storage.local.get(['userState'], (result) => {
+      console.log('[RateAPI] Retrieved user state:', result.userState);
+      sendResponse({ success: true, state: result.userState || null });
+    });
+    return true;
+  }
 });
 
 // Log when service worker starts

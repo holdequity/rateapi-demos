@@ -1,7 +1,7 @@
 # RateAPI Demos
 
 <p align="center">
-  <b>2,900+ credit union mortgage rates. One API call.</b>
+  <b>Example implementations showing how to integrate RateAPI into your applications</b>
 </p>
 
 <p align="center">
@@ -11,7 +11,8 @@
 <p align="center">
   <a href="#-pick-your-demo">Pick a Demo</a> •
   <a href="#-demo-details">Demo Details</a> •
-  <a href="https://rateapi.dev">Documentation</a>
+  <a href="https://rateapi.dev">Documentation</a> •
+  <a href="https://api.rateapi.dev">Get API Key</a>
 </p>
 
 ---
@@ -19,39 +20,46 @@
 ![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen)
 ![License](https://img.shields.io/badge/license-MIT-blue)
 ![Demos](https://img.shields.io/badge/demos-7-orange)
-[![Discord Bot](https://img.shields.io/badge/Discord_Bot-View_Docs-5865F2?logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 [![API Status](https://img.shields.io/badge/API-live-success)](https://api.rateapi.dev)
 [![GitHub stars](https://img.shields.io/github/stars/rate-api/demos?style=social)](https://github.com/rate-api/demos/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/rate-api/demos?style=social)](https://github.com/rate-api/demos/network/members)
 
+**This is a collection of developer demos** — working code examples that show how to integrate RateAPI's mortgage rate data into different types of applications. Fork the code, learn from it, and adapt it for your own projects.
+
 ```bash
 git clone https://github.com/rate-api/demos.git
 cd rateapi-demos
-node run.js rate-explorer  # Auto-creates API key, shows live rates
+node run.js rate-explorer  # Auto-creates API key, explore the API
 ```
 
 ---
 
-## Why RateAPI?
+## What You Can Build
 
-- **4,000+ credit unions** — Complete coverage of US credit union mortgage rates
-- **Real-time data** — Rates updated continuously, not daily scrapes
-- **Production-ready** — Webhooks, monitoring, SDKs included
-- **Free to start** — Self-service API key creation, no sales calls
+These demos show integration patterns for:
+
+- **Real Estate Platforms** — Rate widgets for property listings
+- **Financial Planning Apps** — Refinance recommendations, mortgage optimization
+- **AI Assistants** — Natural language mortgage rate queries
+- **Rate Comparison Sites** — Credit union rate aggregators
+- **Monitoring & Alerts** — Webhook-powered rate drop notifications
+- **Browser Extensions** — Contextual rate overlays on real estate sites
+
+**Get your free API key:** [https://api.rateapi.dev](https://api.rateapi.dev)
 
 ---
 
 ## 🎯 Pick Your Demo
 
-| Demo | Best For | Run Time |
-|------|----------|----------|
-| [**Rate Explorer**](#-1-rate-explorer) | See the API in action | 30 sec |
-| [**Webhook Monitor**](#-2-webhook-monitor) | Build rate alerts | 2 min |
-| [**AI Agent**](#-3-ai-agent) | Add to chatbots/assistants | 1 min |
-| [**React Widget**](#-4-react-widget) | Embed in React apps | 5 min |
-| [**LangChain Agent**](#-5-langchain-agent) | Build AI mortgage advisors | 10 min |
-| [**Discord Bot**](#-6-discord-bot) | Community rate alerts | [View Docs](https://rateapi.dev/discord-bot) |
-| [**Chrome Extension**](#-7-chrome-extension) | Rates on Zillow/Redfin/Realtor.com | 2 min |
+| Demo | What It Demonstrates | API Features |
+|------|---------------------|--------------|
+| [**Rate Explorer**](#-1-rate-explorer) | CLI interaction with Decision Engine | Key creation, decisions, lookups |
+| [**Webhook Monitor**](#-2-webhook-monitor) | Rate alert system architecture | Monitors, webhooks, HMAC verification |
+| [**AI Agent**](#-3-ai-agent) | LLM tool integration patterns | Function calling, natural language → API |
+| [**React Widget**](#-4-react-widget) | Embeddable UI component | React hooks, server-side key protection |
+| [**LangChain Agent**](#-5-langchain-agent) | Full AI agent architecture | Multi-tool orchestration, memory |
+| [**Discord Bot**](#-6-discord-bot) | Hosted bot (one-click install) | [Add to Server](https://rateapi.dev/discord-bot) |
+| [**Chrome Extension**](#-7-chrome-extension) | Content injection patterns | DOM extraction, Shadow DOM, proxies |
 
 ### API Coverage by Demo
 
@@ -165,28 +173,27 @@ npm run web       # Web UI at localhost:3000
 
 ### 💬 6. Discord Bot
 
-**Get mortgage rates without leaving Discord.** Free hosted bot with rate alerts and natural language queries.
+**Free hosted bot** — add RateAPI to your Discord server with one click. No setup, no API key required.
 
-[![View Documentation](https://img.shields.io/badge/View_Documentation-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
+[![Add to Discord](https://img.shields.io/badge/Add_to_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 
-**Highlights:**
+**Features:**
 - Real-time rate comparisons across thousands of credit unions
 - Rate drop alerts — get notified when rates hit your target
 - Natural language queries — ask questions in plain English
-- No API key needed, no rate limits, free to use
 
-**Perfect for:**
+**Great for:**
 - Real estate investing Discord communities
 - Personal finance servers
 - Mortgage professional groups
 
-[Read the full documentation](https://rateapi.dev/discord-bot) to see all commands and add the bot to your server.
+[View documentation and add the bot →](https://rateapi.dev/discord-bot)
 
 ---
 
 ### 🔌 7. Chrome Extension
 
-**See credit union rates while browsing Zillow, Redfin & Realtor.com.** Includes local proxy server.
+**See credit union rates while browsing Zillow, Redfin, Realtor.com & ProjectionLab.** Supports both home purchase and refinance contexts.
 
 ```bash
 node run.js chrome-extension
@@ -200,27 +207,40 @@ node run.js chrome-extension
 - Background service workers for API communication
 - Bridge pattern for MAIN/ISOLATED world messaging
 - Cloudflare Worker proxy for API key protection
+- Refinance vs. purchase context handling
 
 **Key features:**
-- Auto-detects property listings on Zillow, Redfin, and Realtor.com
-- Extracts price and location from page DOM using site-specific selectors
+- **Purchase context**: Auto-detects listings on Zillow, Redfin, Realtor.com
+- **Refinance context**: Integrates with ProjectionLab financial planning dashboards
+- Extracts price/balance and location from page DOM
 - Displays floating overlay with best credit union rates
-- Shows potential monthly savings vs national average
+- Shows potential monthly savings vs. current rate or national average
 - Expandable to show top 5 credit union offers
+- State persistence across sessions (Chrome storage)
 - In-memory caching to reduce API calls
 - Demo mode with realistic sample data (no API key needed)
+
+**NEW: ProjectionLab Integration** 🔥
+- First Chrome extension for the FIRE community
+- Auto-detects mortgage liabilities from your financial dashboard
+- Shows refinance rates to help accelerate your path to FI
+- Saves $214/mo on average ($400k mortgage, 7% → 6.125%)
+- [Read full integration guide](./chrome-extension/PROJECTIONLAB_INTEGRATION.md)
 
 [View source →](./chrome-extension/)
 
 ---
 
-## 🌟 Built With RateAPI
+## 🌟 Built With These Patterns
 
-Projects and integrations built by the community:
+Developers have used these demos as starting points for:
 
-- *Your project here!* — [Submit a PR](https://github.com/rate-api/demos/pulls) to showcase your integration
+- Real estate platform integrations
+- AI-powered mortgage chatbots
+- Rate monitoring dashboards
+- Credit union comparison tools
 
-Using RateAPI in production? We'd love to feature your project.
+**Built something with RateAPI?** [Submit a PR](https://github.com/rate-api/demos/pulls) to share your implementation.
 
 ---
 
@@ -250,20 +270,25 @@ OPENAI_API_KEY=sk-...       # Only for AI demos in real mode
 
 ## 🤝 Contributing
 
-PRs welcome! Ideas for new demos:
+PRs welcome! Ideas for new integration patterns:
 
-- [x] Discord bot for rate alerts
-- [x] Chrome extension for real estate sites
-- [ ] Telegram bot for rate alerts
-- [ ] Google Sheets integration
-- [ ] Python SDK
-- [ ] Slack bot for team notifications
-- [ ] Firefox extension (port from Chrome)
+- [x] Discord bot (hosted service)
+- [x] Chrome extension (content scripts, DOM extraction, Shadow DOM)
+- [ ] Telegram bot (inline queries, notifications)
+- [ ] Google Sheets (custom functions, data import)
+- [ ] Python SDK (requests wrapper, async support)
+- [ ] Slack bot (slash commands, Block Kit)
+- [ ] Firefox extension (port WebExtension patterns)
+
+**Want to contribute?** Each demo should:
+1. Demonstrate a specific API integration pattern
+2. Include working, runnable code
+3. Explain what developers can learn from it
 
 [Open an issue →](https://github.com/rate-api/demos/issues)
 
 ---
 
 <p align="center">
-  Built by <a href="https://rateapi.dev">RateAPI</a>
+  <a href="https://rateapi.dev">RateAPI</a> — Mortgage rate data for developers
 </p>

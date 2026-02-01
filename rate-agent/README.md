@@ -1,6 +1,8 @@
 # AI Agent Integration Demo
 
-Chat-based mortgage advisor powered by [RateAPI](https://rateapi.dev). Ask natural language questions about mortgage rates and get real-time data.
+**Reference implementation** for integrating [RateAPI](https://rateapi.dev) as a tool in AI applications. This code demonstrates LLM function calling patterns that work with OpenAI, Claude, and other providers.
+
+> **For Developers:** Use this as a template for building AI financial assistants. The mock mode lets you test without LLM API costs.
 
 ## Quick Start
 
@@ -121,6 +123,21 @@ Website: https://www.firsttechfed.com
       v
 [User]
 ```
+
+## Use This Pattern For
+
+- **AI chatbots** - Mortgage-aware customer support bots
+- **Financial assistants** - Integrated rate lookup in planning tools
+- **Voice interfaces** - Alexa/Google Home mortgage skills
+- **Slack/Discord bots** - Team-facing rate lookup tools
+
+## Code You Can Reuse
+
+Copy these patterns into your own projects:
+
+- `tools.js` - OpenAI-format tool definitions (works with Claude too)
+- `mock-llm.js` - Testing pattern for AI integrations without LLM costs
+- Intent extraction patterns - Natural language → API parameters
 
 ## Learn More
 

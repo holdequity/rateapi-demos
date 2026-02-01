@@ -1,29 +1,149 @@
-# RateAPI Chrome Extension
+# RateAPI Chrome Extension - Developer Demo
 
-**See credit union mortgage rates while browsing Zillow, Redfin & Realtor.com**
+**Example implementation showing real-time mortgage rate integration using the RateAPI Decision Engine**
 
-A Chrome extension that automatically detects property listings and displays competitive credit union mortgage rates with potential savings calculations. Works in demo mode with no setup required.
+This is a **developer demo** showcasing how to integrate RateAPI's mortgage rate data into real estate and financial planning websites. The extension serves as working example code demonstrating API integration patterns, DOM extraction techniques, and Shadow DOM UI components that developers can learn from or fork for their own applications.
 
-![Chrome Extension Demo](../assets/chrome-extension-demo.png)
+**Target Audience:** Developers and product teams evaluating RateAPI for their applications.
 
-## Features
+**This is example code, not a product.** This extension demonstrates RateAPI integration patterns for developers. It's meant to be forked, studied, and adapted for your own applications.
 
-- **Auto-Detection** - Recognizes property listings on Zillow, Redfin, and Realtor.com
-- **Real-Time Rates** - Shows best available credit union rates vs national average
-- **Savings Calculator** - Instantly calculates potential monthly savings
-- **Top Offers** - Displays 5 best credit union mortgage options
-- **Non-Intrusive UI** - Clean overlay with minimize/expand controls
-- **Demo Mode** - Works immediately with realistic sample data
+**What You'll Learn:**
+- How to call RateAPI's Decision Engine API
+- Real-world DOM extraction patterns for fintech sites
+- Chrome Extension Manifest V3 architecture
+- Shadow DOM for style-isolated UI components
+- Client-side API proxy patterns
+- SPA navigation handling in content scripts
 
-## Supported Sites
+**Get Started:** Get your free RateAPI key at [https://api.rateapi.dev](https://api.rateapi.dev) and start building.
 
-| Site | URL Pattern | Status |
-|------|-------------|--------|
-| **Zillow** | `zillow.com/homedetails/*` | Supported |
-| **Redfin** | `redfin.com/*/home/*` | Supported |
-| **Realtor.com** | `realtor.com/realestateandhomes-detail/*` | Supported |
+## Demo Screenshots - API Integration Examples
 
-## Quick Start
+These screenshots show the extension in action across different contexts, demonstrating various API integration patterns:
+
+| Context | Site | API Usage Pattern |
+|---------|------|-------------------|
+| **Refinance** | ProjectionLab | `intent: refinance` + current rate comparison |
+| **Purchase** | Zillow | `intent: purchase` + list price extraction |
+| **Purchase** | Redfin | `intent: purchase` + state from URL parsing |
+
+### ProjectionLab - Refinance API Pattern
+![ProjectionLab Demo](./assets/projection-lab.png)
+*Demonstrates: refinance intent, current rate extraction, persistent state storage*
+
+### Zillow - Purchase API Pattern
+![Zillow Demo](./assets/zillow-demo.png)
+*Demonstrates: price extraction from React components, state from URL parsing*
+
+### Redfin - Purchase API Pattern
+![Redfin Demo](./assets/redfin-demo.png)
+*Demonstrates: handling SPA navigation, multiple selector fallbacks*
+
+## What You Can Build With This
+
+This demo shows you how to integrate RateAPI into various applications. Use this code as a starting point for:
+
+**Real Estate & Mortgage Apps:**
+- Property listing sites with embedded rate comparisons
+- Affordability calculators with real-time credit union rates
+- Realtor tools for client consultations
+- Home buyer education platforms
+
+**Financial Planning & Refinance:**
+- Refinance recommendation engines
+- Mortgage optimization tools in financial dashboards
+- Net worth tracking apps with loan optimization
+- Retirement planning with housing cost scenarios
+
+**Rate Comparison & Lead Gen:**
+- Credit union rate aggregator sites
+- Mortgage shopping marketplaces
+- Financial advisor tools
+- Lead generation with personalized rate quotes
+
+**Browser Extensions & Widgets:**
+- Custom extensions for specific niches (luxury, commercial, etc.)
+- Embeddable rate widgets for blogs and content sites
+- Rate alert and monitoring tools
+- Portfolio management extensions
+
+## Developer Integration Guides
+
+- **[Real Estate Sites Integration](./REAL_ESTATE_INTEGRATIONS.md)** - Technical patterns for Zillow, Redfin, Realtor.com
+- **[ProjectionLab Integration](./PROJECTIONLAB_INTEGRATION.md)** - Refinance context implementation details
+
+## What This Demo Showcases
+
+**API Integration Patterns:**
+- Calling RateAPI's Decision Engine with different contexts (purchase vs. refinance)
+- Handling API responses and transforming data for UI display
+- Client-side caching strategies (1-hour TTL)
+- Mock data fallbacks for development
+
+**DOM Extraction Techniques:**
+- Site-specific selector strategies with fallback chains
+- State detection from URLs vs. DOM elements
+- Handling dynamic content and SPA routing
+- Working with React/Vue component rendering
+
+**Chrome Extension Architecture:**
+- Manifest V3 service worker patterns
+- MAIN world vs. ISOLATED world content scripts
+- Shadow DOM for style isolation
+- Message passing between extension contexts
+
+**UI Component Patterns:**
+- Lit web components with reactive properties
+- Loading, error, and data states
+- Minimizable, non-intrusive overlays
+- Responsive design without framework dependencies
+
+## Supported Sites (Demo Integrations)
+
+| Site | URL Pattern | Context | What It Demonstrates |
+|------|-------------|---------|----------------------|
+| **Zillow** | `zillow.com/homedetails/*` | Purchase | React component extraction, URL parsing |
+| **Redfin** | `redfin.com/*/home/*` | Purchase | SPA navigation, selector fallbacks |
+| **Realtor.com** | `realtor.com/realestateandhomes-detail/*` | Purchase | Breadcrumb parsing, dynamic content |
+| **ProjectionLab** | `app.projectionlab.com/*` | Refinance | Vuetify forms, refinance API pattern |
+
+These are **example integrations** showing different technical patterns. Fork the code and adapt for your own use case.
+
+### ProjectionLab Integration - Refinance API Pattern
+
+This integration demonstrates how to implement **refinance-specific** API calls, contrasting with the purchase-focused real estate site patterns.
+
+**Key Technical Differences:**
+
+```javascript
+// Purchase context (Zillow/Redfin)
+{
+  product_request: {
+    intent: "purchase",
+    amount: listPrice  // from listing
+  }
+}
+
+// Refinance context (ProjectionLab)
+{
+  product_request: {
+    intent: "refinance",
+    amount: currentBalance  // from existing loan
+  }
+}
+```
+
+**What Developers Can Learn:**
+- Extracting data from Vuetify form components
+- Persistent storage with chrome.storage API
+- Handling missing data gracefully (state selection fallback)
+- Calculating savings against current rate vs. national average
+- Working with financial planning SPA architectures
+
+**Implementation Details:** [PROJECTIONLAB_INTEGRATION.md](./PROJECTIONLAB_INTEGRATION.md)
+
+## Quick Start for Developers
 
 ### Option 1: Using run.js (Recommended)
 
@@ -41,15 +161,17 @@ node run.js chrome-extension
 # 5. Visit any property listing on Zillow, Redfin, or Realtor.com
 ```
 
-The proxy server runs at `http://localhost:3000` and uses the shared `.env` file.
+The proxy server runs at `http://localhost:3000` and demonstrates how to proxy RateAPI calls safely.
 
-**To use live RateAPI data**, add your key to the root `.env`:
+**To test with live RateAPI data**, add your API key to the root `.env`:
 ```bash
 # In rateapi-demos/.env
-RATEAPI_KEY=your-key
+RATEAPI_KEY=your-api-key-here
 ```
 
-Or run rate-explorer first to auto-create an API key:
+**Get your API key:** Sign up at [https://api.rateapi.dev](https://api.rateapi.dev) for free access to the Decision Engine.
+
+Or run the rate-explorer demo first to auto-create an API key:
 ```bash
 node run.js rate-explorer
 ```
@@ -91,7 +213,7 @@ After making code changes:
 3. Click the refresh icon on the extension card
 4. Reload any property listing pages to see changes
 
-### Project Structure
+### Project Structure - Code Tour for Developers
 
 ```
 chrome-extension/
@@ -100,32 +222,36 @@ chrome-extension/
 ├── esbuild.config.js          # Build configuration
 │
 ├── src/
-│   ├── background.js          # Service worker (API calls, caching)
+│   ├── background.js          # ⭐ START HERE: API calls, caching, message handling
 │   │
 │   ├── content/
-│   │   ├── index.js           # Entry point, site detection, overlay injection
+│   │   ├── index.js           # Site detection, DOM extraction, overlay injection
 │   │   ├── bridge.js          # ISOLATED world script (chrome API bridge)
 │   │   └── components/
-│   │       └── rate-overlay.js  # Lit web component (Shadow DOM)
+│   │       └── rate-overlay.js  # ⭐ Lit component: UI states, Shadow DOM patterns
 │   │
 │   ├── lib/
-│   │   ├── config.js          # Extension configuration
-│   │   └── sites.js           # Site-specific DOM selectors
+│   │   ├── config.js          # Extension configuration (API URLs, timeouts)
+│   │   └── sites.js           # ⭐ Site configs: selector patterns, state extraction
 │   │
 │   ├── styles/
-│   │   └── overlay.css        # Global styles (minimal)
+│   │   └── overlay.css        # Global styles (minimal, Shadow DOM does most)
 │   │
 │   └── popup/
 │       ├── popup.html         # Extension popup UI
-│       └── popup.js           # Popup logic
+│       └── popup.js           # Popup logic (cache clearing, state reset)
 │
+├── server.js                  # ⭐ Local proxy server: API key protection pattern
 ├── icons/                     # Extension icons (16, 48, 128)
 └── dist/                      # Built output (load this in Chrome)
-    ├── background.js
-    ├── content.js
-    ├── bridge.js
-    └── content.css
 ```
+
+**Start Your Code Review Here:**
+
+1. `src/lib/sites.js` - See how DOM extraction is configured per site
+2. `src/background.js` - Understand the API call and caching pattern
+3. `src/content/components/rate-overlay.js` - Study the Lit component structure
+4. `server.js` - Review the API proxy pattern for development
 
 ### Architecture
 
@@ -392,33 +518,47 @@ npm run build
 
 Reload the extension in `chrome://extensions` and visit a property listing to see live rate data.
 
-## API Endpoints Used
+## RateAPI Integration - Decision Engine
 
-This extension integrates with RateAPI's Decision Engine:
+This demo uses RateAPI's **Decision Engine** endpoint to fetch real-time mortgage rates. Here's how to integrate it in your own application:
 
-| Endpoint | Method | Purpose |
-|----------|--------|---------|
-| `/v1/decisions` | POST | Get mortgage rate recommendations by state and loan amount |
+### Endpoint
 
-**Request Example:**
+```
+POST https://api.rateapi.dev/v1/decisions
+```
+
+### Authentication
+
+```bash
+X-API-Key: your-api-key-here
+```
+
+Get your free API key at [https://api.rateapi.dev](https://api.rateapi.dev)
+
+### Request Example
+
 ```json
 {
   "decision_type": "financing",
   "context": {
-    "request_id": "chrome-ext-1234567890",
+    "request_id": "your-app-request-123",
     "geo": { "state": "CA" }
   },
   "product_request": {
     "product_type": "mortgage",
-    "intent": "purchase",
+    "intent": "purchase",        // or "refinance"
     "amount": 500000,
-    "term_months": 360
+    "term_months": 360           // 30-year fixed
   },
-  "preferences": { "max_providers": 5 }
+  "preferences": {
+    "max_providers": 5           // limit results
+  }
 }
 ```
 
-**Response Example:**
+### Response Structure
+
 ```json
 {
   "summary": {
@@ -445,25 +585,69 @@ This extension integrates with RateAPI's Decision Engine:
 }
 ```
 
-## Tech Stack
+### Implementation in This Demo
 
-| Technology | Purpose | Size |
-|------------|---------|------|
-| **Lit** | Web Components framework | ~5kb |
-| **esbuild** | Fast bundler | Dev only |
-| **Shadow DOM** | Style isolation | Built-in |
-| **Chrome Manifest V3** | Extension API | - |
+See `chrome-extension/src/background.js` for the full implementation:
 
-### Why Lit?
+```javascript
+// Simplified example from background.js
+async function fetchRates(state, amount, intent = 'purchase') {
+  const response = await fetch('https://api.rateapi.dev/v1/decisions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-API-Key': env.RATEAPI_KEY,
+    },
+    body: JSON.stringify({
+      decision_type: 'financing',
+      context: { geo: { state } },
+      product_request: {
+        product_type: 'mortgage',
+        intent,
+        amount,
+        term_months: 360,
+      },
+      preferences: { max_providers: 5 },
+    }),
+  });
 
-- Lightweight (5kb vs 40kb+ for React)
-- Native Shadow DOM support for perfect style isolation
-- No virtual DOM overhead
+  const data = await response.json();
+  return transformToOverlayFormat(data);
+}
+```
+
+**Learn More:** [RateAPI Documentation](https://docs.rateapi.dev/decision-engine)
+
+## Tech Stack & Architecture Decisions
+
+| Technology | Purpose | Why We Chose It |
+|------------|---------|-----------------|
+| **Lit** | Web Components | Lightweight (5kb), native Shadow DOM, no virtual DOM overhead |
+| **esbuild** | Bundler | Fast builds, simple config, TypeScript support |
+| **Shadow DOM** | Style isolation | Prevents style conflicts with host pages |
+| **Chrome Manifest V3** | Extension API | Latest Chrome extension standard |
+
+### Why This Stack?
+
+**Lit over React/Vue:**
+- 5kb vs 40kb+ for React (better for extensions)
+- Native Shadow DOM support without polyfills
 - Works seamlessly with customElements API
+- No virtual DOM overhead for simple UI
 
-### Why Shadow DOM?
+**Shadow DOM Benefits:**
+- Complete style isolation from host page
+- No CSS conflicts with Zillow, Redfin, etc.
+- Encapsulated component logic
+- Standard web platform feature
 
-Shadow DOM prevents the extension's styles from conflicting with Zillow/Redfin/Realtor stylesheets (and vice versa). This is critical for extensions that inject UI into existing pages.
+**Manifest V3:**
+- Required for new Chrome extensions
+- Better security model
+- Service worker architecture
+- Future-proof
+
+**Takeaway for Developers:** This stack prioritizes small bundle size and style isolation, critical for content script injections. Adapt based on your needs (e.g., React if you're already using it elsewhere).
 
 ## Customization
 
@@ -607,37 +791,47 @@ Rates are cached for 1 hour to reduce API calls and improve performance.
 
 The origin will be something like `chrome-extension://abcdefghijklmnop`.
 
-## Publishing to Chrome Web Store
+## Build Your Own
 
-To publish this extension publicly:
+This demo is designed to be forked and customized for your own use case. Here are some ideas:
 
-1. **Prepare assets:**
-   - Create promotional images (1400x560, 920x680, 640x400)
-   - Write store description
-   - Take screenshots of the extension in action
+### Adaptation Ideas
 
-2. **Update manifest:**
-   - Set final version number
-   - Add production proxy URL to config
-   - Remove demo mode code if desired
+**Real Estate Applications:**
+- Add your own mortgage calculator with RateAPI data
+- Integrate with your own lead generation system
+- Create a realtor-facing tool for client consultations
+- Build a mobile app version using the same API patterns
 
-3. **Create ZIP:**
-   ```bash
-   npm run build
-   zip -r extension.zip manifest.json dist/ icons/ src/popup/
-   ```
+**Financial Planning:**
+- Extend to other loan types (auto, personal, HELOC)
+- Add rate tracking and alerts
+- Build a refinance recommendation engine
+- Create a mortgage payoff optimizer
 
-4. **Submit:**
-   - Go to [Chrome Web Store Developer Dashboard](https://chrome.google.com/webstore/devconsole)
-   - Pay one-time $5 developer fee (if first extension)
-   - Upload `extension.zip`
-   - Fill out store listing
-   - Submit for review (typically 1-3 days)
+**Rate Comparison Sites:**
+- Build a credit union rate aggregator
+- Add user accounts and saved searches
+- Implement rate change notifications
+- Create API-powered widgets for blogs
 
-5. **Consider:**
-   - Privacy policy URL (required if collecting data)
-   - Support email address
-   - Pricing model (free or paid)
+### Customization Starting Points
+
+1. **Change the UI:** Edit `src/content/components/rate-overlay.js` (Lit component)
+2. **Add new sites:** Update `src/lib/sites.js` with new extraction patterns
+3. **Modify API calls:** Edit `src/background.js` to change request parameters
+4. **Deploy your own proxy:** Use the included Cloudflare Worker template
+
+### Production Deployment
+
+If you want to publish your own version:
+
+1. Get your own RateAPI key at [https://api.rateapi.dev](https://api.rateapi.dev)
+2. Deploy the proxy worker to Cloudflare (see Production Setup section)
+3. Update branding in manifest.json and icons
+4. Consider Chrome Web Store publishing if targeting end users
+
+**Need Help?** Open an issue in this repo or email support@rateapi.dev
 
 ## Performance
 
@@ -667,8 +861,22 @@ MIT License - see [LICENSE](../LICENSE) for details.
 - [Lit Documentation](https://lit.dev)
 - [Cloudflare Workers](https://workers.cloudflare.com)
 
-## Support
+## Contributing & Support
 
-- Questions? [Open an issue](https://github.com/rate-api/demos/issues)
-- Feature requests? [Submit a PR](https://github.com/rate-api/demos/pulls)
-- API support? [Email support@rateapi.dev](mailto:support@rateapi.dev)
+This is open source example code in the RateAPI demos repository. Contributions welcome!
+
+**For Developers:**
+- Questions about the code? [Open an issue](https://github.com/rate-api/demos/issues)
+- Want to improve the demo? [Submit a PR](https://github.com/rate-api/demos/pulls)
+- Building something similar? Share it! We'd love to see what you create
+
+**For API Support:**
+- RateAPI questions: [Email support@rateapi.dev](mailto:support@rateapi.dev)
+- API documentation: [https://docs.rateapi.dev](https://docs.rateapi.dev)
+- Get an API key: [https://api.rateapi.dev](https://api.rateapi.dev)
+
+## About This Demo
+
+This Chrome extension is part of the **RateAPI Demos** repository, showcasing practical implementations of the RateAPI Decision Engine. It's designed as a learning resource and starting point for developers building fintech applications.
+
+**Not for end users:** This is example code for developers, not a consumer product. If you're looking to compare mortgage rates, visit [RateAPI.dev](https://rateapi.dev) directly.

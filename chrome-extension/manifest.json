@@ -1,13 +1,14 @@
 {
   "manifest_version": 3,
   "name": "RateAPI - Credit Union Rate Checker",
-  "description": "See credit union mortgage rates on Zillow, Redfin & Realtor.com. Compare rates and save on your mortgage.",
-  "version": "1.0.0",
+  "description": "See credit union mortgage rates on Zillow, Redfin, Realtor.com & ProjectionLab. Compare rates and save on your mortgage.",
+  "version": "1.1.0",
   "permissions": ["storage", "activeTab"],
   "host_permissions": [
     "https://*.zillow.com/*",
     "https://*.redfin.com/*",
-    "https://*.realtor.com/*"
+    "https://*.realtor.com/*",
+    "https://app.projectionlab.com/*"
   ],
   "background": {
     "service_worker": "dist/background.js",
@@ -18,7 +19,8 @@
       "matches": [
         "https://*.zillow.com/homedetails/*",
         "https://*.redfin.com/*/home/*",
-        "https://*.realtor.com/realestateandhomes-detail/*"
+        "https://*.realtor.com/realestateandhomes-detail/*",
+        "https://app.projectionlab.com/*"
       ],
       "js": ["dist/bridge.js"],
       "run_at": "document_start",
@@ -28,7 +30,8 @@
       "matches": [
         "https://*.zillow.com/homedetails/*",
         "https://*.redfin.com/*/home/*",
-        "https://*.realtor.com/realestateandhomes-detail/*"
+        "https://*.realtor.com/realestateandhomes-detail/*",
+        "https://app.projectionlab.com/*"
       ],
       "js": ["dist/content.js"],
       "css": ["dist/content.css"],

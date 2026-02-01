@@ -26,11 +26,21 @@ window.addEventListener('message', async (event) => {
         action: 'getRates',
         state: payload.state,
         amount: payload.amount,
+        intent: payload.intent,
       });
     } else if (action === 'clearCache') {
       response = await chrome.runtime.sendMessage({ action: 'clearCache' });
     } else if (action === 'getConfig') {
       response = await chrome.runtime.sendMessage({ action: 'getConfig' });
+    } else if (action === 'saveState') {
+      // Save user's state to storage
+      response = await chrome.runtime.sendMessage({
+        action: 'saveState',
+        state: payload.state,
+      });
+    } else if (action === 'getState') {
+      // Get user's saved state from storage
+      response = await chrome.runtime.sendMessage({ action: 'getState' });
     }
 
     // Send response back to MAIN world

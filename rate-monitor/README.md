@@ -1,6 +1,8 @@
-# Webhook Monitor Dashboard
+# Webhook Monitor Demo
 
-Demo that shows how to create [RateAPI](https://rateapi.dev) rate monitors and receive webhook notifications when conditions are met.
+**Reference implementation** for building rate alert systems with [RateAPI](https://rateapi.dev) webhooks. This code demonstrates monitor CRUD operations and production-ready HMAC signature verification.
+
+> **For Developers:** Copy the webhook verification code directly into your production systems. This is how you'd build rate drop alerts for users.
 
 ## Quick Start
 
@@ -104,6 +106,21 @@ if (!result.valid) {
                                      |
                             Process Alert
 ```
+
+## Use This Pattern For
+
+- **Rate alert apps** - Notify users when rates drop
+- **Internal monitoring** - Track credit union rate changes
+- **Automated workflows** - Trigger actions based on rate conditions
+- **Email/SMS services** - Send rate notifications to subscribers
+
+## Code You Can Reuse
+
+Copy these patterns into your own projects:
+
+- `verify-signature.js` - Production-ready HMAC verification (drop-in)
+- Monitor lifecycle - Create, list, update, delete monitors
+- Simulation testing - Test webhooks without waiting for rate changes
 
 ## Learn More
 

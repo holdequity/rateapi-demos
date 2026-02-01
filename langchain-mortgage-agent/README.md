@@ -1,8 +1,8 @@
-# 🤖 LangChain Mortgage Agent
+# LangChain Mortgage Agent Demo
 
 <p align="center">
-  <b>AI-powered mortgage advisor using LangChain + RateAPI</b><br>
-  Natural language conversations • Real-time rate data • Production-ready architecture
+  <b>Reference implementation for building AI agents with LangChain + RateAPI</b><br>
+  Demonstrates: Tool definitions, agent orchestration, memory patterns, web UI
 </p>
 
 <p align="center">
@@ -10,6 +10,17 @@
   <img src="https://img.shields.io/badge/GPT--4o-supported-green" alt="GPT-4" />
   <img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License" />
 </p>
+
+> **For Developers:** This is a complete LangChain agent implementation. Fork it to build your own AI financial assistants with real-time rate data.
+
+---
+
+## Use This Pattern For
+
+- **AI chatbots** - Production-ready conversation architecture
+- **Customer support** - Automated mortgage Q&A
+- **Financial planning apps** - Rate recommendations in planning tools
+- **Internal tools** - Mortgage research assistants for teams
 
 ---
 
@@ -375,6 +386,15 @@ Ideas for improvements:
 
 ---
 
+## Code You Can Reuse
+
+Copy these patterns into your own projects:
+
+- `src/tools/*.js` - LangChain tool definitions for RateAPI
+- `src/prompts/system.txt` - Agent personality and instructions
+- `src/server.js` - Express web interface for agents
+- `src/cli.js` - Interactive CLI chat pattern
+
 ## 📄 License
 
 MIT
@@ -382,5 +402,5 @@ MIT
 ---
 
 <p align="center">
-  Built with ❤️ by <a href="https://rateapi.dev">RateAPI</a>
+  Part of <a href="https://github.com/rate-api/demos">RateAPI Demos</a> — reference implementations for developers
 </p>

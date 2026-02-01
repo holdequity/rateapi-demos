@@ -17,6 +17,9 @@ export class RateOverlay extends LitElement {
     offers: { type: Array },
     minimized: { type: Boolean },
     position: { type: String }, // 'bottom-right', 'bottom-left'
+    isRefinance: { type: Boolean }, // true for refinance context (e.g., ProjectionLab)
+    showStateSelector: { type: Boolean }, // show state selection UI
+    selectedState: { type: String }, // user's selected state
   };
 
   static styles = css`
@@ -299,6 +302,83 @@ export class RateOverlay extends LitElement {
       border-radius: 4px;
       margin-left: 8px;
     }
+
+    .refinance-banner {
+      background: linear-gradient(135deg, #dbeafe 0%, #e0e7ff 100%);
+      border-radius: var(--rateapi-radius-sm);
+      padding: 10px 12px;
+      margin-bottom: 14px;
+      font-size: 13px;
+      color: #1e40af;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .refinance-icon {
+      font-size: 16px;
+    }
+
+    .state-selector {
+      padding: 16px;
+    }
+
+    .state-selector-title {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: var(--rateapi-text);
+    }
+
+    .state-selector-subtitle {
+      font-size: 12px;
+      color: var(--rateapi-text-muted);
+      margin-bottom: 12px;
+    }
+
+    .state-select {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--rateapi-border);
+      border-radius: var(--rateapi-radius-sm);
+      font-size: 14px;
+      background: var(--rateapi-surface);
+      color: var(--rateapi-text);
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%236b7280' d='M2 4l4 4 4-4'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+    }
+
+    .state-select:focus {
+      outline: none;
+      border-color: var(--rateapi-brand);
+      box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+    }
+
+    .state-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--rateapi-surface-secondary);
+      border: 1px solid var(--rateapi-border);
+      border-radius: 9999px;
+      padding: 4px 10px;
+      font-size: 12px;
+      color: var(--rateapi-text);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .state-badge:hover {
+      background: var(--rateapi-border);
+    }
+
+    .state-badge-icon {
+      width: 12px;
+      height: 12px;
+    }
   `;
 
   constructor() {
@@ -312,7 +392,40 @@ export class RateOverlay extends LitElement {
     this.offers = [];
     this.minimized = false;
     this.position = 'bottom-right';
+    this.isRefinance = false;
+    this.showStateSelector = false;
+    this.selectedState = '';
   }
+
+  // US States for the selector
+  static states = [
+    { abbrev: 'AL', name: 'Alabama' }, { abbrev: 'AK', name: 'Alaska' },
+    { abbrev: 'AZ', name: 'Arizona' }, { abbrev: 'AR', name: 'Arkansas' },
+    { abbrev: 'CA', name: 'California' }, { abbrev: 'CO', name: 'Colorado' },
+    { abbrev: 'CT', name: 'Connecticut' }, { abbrev: 'DE', name: 'Delaware' },
+    { abbrev: 'FL', name: 'Florida' }, { abbrev: 'GA', name: 'Georgia' },
+    { abbrev: 'HI', name: 'Hawaii' }, { abbrev: 'ID', name: 'Idaho' },
+    { abbrev: 'IL', name: 'Illinois' }, { abbrev: 'IN', name: 'Indiana' },
+    { abbrev: 'IA', name: 'Iowa' }, { abbrev: 'KS', name: 'Kansas' },
+    { abbrev: 'KY', name: 'Kentucky' }, { abbrev: 'LA', name: 'Louisiana' },
+    { abbrev: 'ME', name: 'Maine' }, { abbrev: 'MD', name: 'Maryland' },
+    { abbrev: 'MA', name: 'Massachusetts' }, { abbrev: 'MI', name: 'Michigan' },
+    { abbrev: 'MN', name: 'Minnesota' }, { abbrev: 'MS', name: 'Mississippi' },
+    { abbrev: 'MO', name: 'Missouri' }, { abbrev: 'MT', name: 'Montana' },
+    { abbrev: 'NE', name: 'Nebraska' }, { abbrev: 'NV', name: 'Nevada' },
+    { abbrev: 'NH', name: 'New Hampshire' }, { abbrev: 'NJ', name: 'New Jersey' },
+    { abbrev: 'NM', name: 'New Mexico' }, { abbrev: 'NY', name: 'New York' },
+    { abbrev: 'NC', name: 'North Carolina' }, { abbrev: 'ND', name: 'North Dakota' },
+    { abbrev: 'OH', name: 'Ohio' }, { abbrev: 'OK', name: 'Oklahoma' },
+    { abbrev: 'OR', name: 'Oregon' }, { abbrev: 'PA', name: 'Pennsylvania' },
+    { abbrev: 'RI', name: 'Rhode Island' }, { abbrev: 'SC', name: 'South Carolina' },
+    { abbrev: 'SD', name: 'South Dakota' }, { abbrev: 'TN', name: 'Tennessee' },
+    { abbrev: 'TX', name: 'Texas' }, { abbrev: 'UT', name: 'Utah' },
+    { abbrev: 'VT', name: 'Vermont' }, { abbrev: 'VA', name: 'Virginia' },
+    { abbrev: 'WA', name: 'Washington' }, { abbrev: 'WV', name: 'West Virginia' },
+    { abbrev: 'WI', name: 'Wisconsin' }, { abbrev: 'WY', name: 'Wyoming' },
+    { abbrev: 'DC', name: 'Washington D.C.' },
+  ];
 
   render() {
     if (this.minimized) {
@@ -327,7 +440,7 @@ export class RateOverlay extends LitElement {
               <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
               <polyline points="9 22 9 12 15 12 15 22" />
             </svg>
-            Credit Union Rates
+            ${this.isRefinance ? 'Refinance Rates' : 'Credit Union Rates'}
           </div>
           <div class="header-actions">
             <button class="header-btn" @click=${this._minimize} title="Minimize">
@@ -343,7 +456,10 @@ export class RateOverlay extends LitElement {
           </div>
         </div>
 
-        ${this.loading ? this._renderLoading() : this.error ? this._renderError() : this._renderContent()}
+        ${this.showStateSelector ? this._renderStateSelector() :
+          this.loading ? this._renderLoading() :
+          this.error ? this._renderError() :
+          this._renderContent()}
 
         <div class="footer">
           Powered by
@@ -371,12 +487,68 @@ export class RateOverlay extends LitElement {
     `;
   }
 
+  _renderStateSelector() {
+    return html`
+      <div class="state-selector">
+        <div class="state-selector-title">Select Your State</div>
+        <div class="state-selector-subtitle">
+          We'll show you the best credit union rates available in your area.
+        </div>
+        <select class="state-select" @change=${this._onStateSelect}>
+          <option value="">Choose your state...</option>
+          ${RateOverlay.states.map(s => html`
+            <option value="${s.abbrev}" ?selected=${this.selectedState === s.abbrev}>
+              ${s.name}
+            </option>
+          `)}
+        </select>
+      </div>
+    `;
+  }
+
   _renderContent() {
+    const savingsLabel = this.isRefinance
+      ? 'Refinance Savings'
+      : 'Potential Monthly Savings';
+
+    const rateLabel = this.isRefinance
+      ? 'Best Refi Rate'
+      : 'Best Credit Union';
+
+    const ctaText = this.expanded
+      ? 'Hide credit union options'
+      : 'See 5 credit union options';
+
+    const stateName = this.selectedState
+      ? RateOverlay.states.find(s => s.abbrev === this.selectedState)?.name || this.selectedState
+      : '';
+
     return html`
       <div class="content">
+        ${this.selectedState ? html`
+          <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+            <span class="state-badge" @click=${this._showStateSelector}>
+              <svg class="state-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/>
+                <circle cx="12" cy="10" r="3"/>
+              </svg>
+              ${stateName}
+              <svg class="state-badge-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M6 9l6 6 6-6"/>
+              </svg>
+            </span>
+          </div>
+        ` : ''}
+        ${this.isRefinance ? html`
+          <div class="refinance-banner">
+            <span class="refinance-icon">💡</span>
+            Based on your mortgage, you could save by refinancing
+          </div>
+        ` : ''}
+
         <div class="rate-comparison">
           <div class="rate-box">
-            <div class="rate-label">Best Credit Union</div>
+            <div class="rate-label">${rateLabel}</div>
             <div class="rate-value best">${this.bestRate}% APR</div>
           </div>
           <div class="rate-box" style="text-align: right;">
@@ -386,7 +558,7 @@ export class RateOverlay extends LitElement {
         </div>
 
         <div class="savings-banner">
-          <div class="savings-label">Potential Monthly Savings</div>
+          <div class="savings-label">${savingsLabel}</div>
           <div>
             <span class="savings-amount">$${this.monthlySavings}</span>
             <span class="savings-period">/month</span>
@@ -394,7 +566,7 @@ export class RateOverlay extends LitElement {
         </div>
 
         <button class="cta-btn" @click=${this._toggleExpand}>
-          ${this.expanded ? 'Hide credit union options' : 'See 5 credit union options'}
+          ${ctaText}
           <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" style="transform: rotate(${this.expanded ? 180 : 0}deg); transition: transform 0.2s;">
             <path d="M2 4l4 4 4-4" stroke="currentColor" stroke-width="2" fill="none" />
           </svg>
@@ -470,6 +642,24 @@ export class RateOverlay extends LitElement {
 
   _retry() {
     this.dispatchEvent(new CustomEvent('retry', { bubbles: true }));
+  }
+
+  _showStateSelector() {
+    this.showStateSelector = true;
+  }
+
+  _onStateSelect(e) {
+    const state = e.target.value;
+    if (state) {
+      this.selectedState = state;
+      this.showStateSelector = false;
+      this.loading = true;
+      // Dispatch event to notify content script of state change
+      this.dispatchEvent(new CustomEvent('statechange', {
+        bubbles: true,
+        detail: { state }
+      }));
+    }
   }
 
   /**
