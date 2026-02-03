@@ -4,7 +4,7 @@
  * RateAPI Rate Explorer CLI
  *
  * Interactive CLI demo showcasing the RateAPI decision engine.
- * Creates API key automatically, then lets you explore mortgage rates.
+ * Creates API key automatically, then lets you explore financial rates.
  *
  * Usage: node rate-explorer.js
  */
@@ -197,10 +197,10 @@ async function getFinancingDecision(apiUrl, apiKey, params) {
       },
     },
     product_request: {
-      product_type: 'mortgage',
+      product_type: params.productType || 'mortgage',
       intent: params.intent,
       amount: params.amount,
-      term_months: params.termMonths || 360,
+      term_months: params.termMonths,
     },
     preferences: {
       max_providers: params.maxProviders || 5,
@@ -353,7 +353,7 @@ function displayCreditUnion(profile) {
 async function main() {
   console.clear();
   printBold('Welcome to RateAPI Rate Explorer!');
-  print('Get personalized mortgage rate recommendations in seconds.\n');
+  print('Get personalized financial rate recommendations in seconds.\n');
 
   const apiUrl = getApiUrl();
   let apiKey = getApiKey();
@@ -391,31 +391,88 @@ async function main() {
         continue;
       }
 
+      // Get product type
+      print('');
+      print('Product types:');
+      print('  1. Mortgage (home loan)');
+      print('  2. Auto Loan (vehicle financing)');
+      print('  3. HELOC (home equity line of credit)');
+      print('  4. Personal Loan');
+      print('  5. Credit Card');
+      print('');
+      let productTypeChoice = await ask(rl, `${colors.cyan}Select product type (1-5) [1]:${colors.reset} `);
+      productTypeChoice = productTypeChoice || '1';
+
+      const productTypeMap = {
+        '1': 'mortgage',
+        '2': 'auto_loan',
+        '3': 'heloc',
+        '4': 'personal_loan',
+        '5': 'credit_card',
+      };
+
+      const productType = productTypeMap[productTypeChoice];
+      if (!productType) {
+        printWarning('Please enter a number between 1-5.');
+        continue;
+      }
+
+      // Define intent options based on product type
+      const intentOptions = {
+        'mortgage': ['purchase', 'refinance'],
+        'auto_loan': ['purchase', 'refinance'],
+        'heloc': ['new_credit', 'cash_out'],
+        'personal_loan': ['new_credit'],
+        'credit_card': ['new_credit', 'balance_transfer'],
+      };
+
+      const validIntents = intentOptions[productType];
+      const defaultIntent = validIntents[0];
+
       // Get loan amount
-      const amountStr = await ask(rl, `${colors.cyan}Enter loan amount (e.g., 400000):${colors.reset} `);
+      const amountLabel = productType === 'credit_card' ? 'credit limit' : 'loan amount';
+      const amountStr = await ask(rl, `${colors.cyan}Enter ${amountLabel} (e.g., 400000):${colors.reset} `);
       const amount = parseInt(amountStr.replace(/[^0-9]/g, ''), 10);
 
-      if (isNaN(amount) || amount < 10000) {
-        printWarning('Please enter a valid loan amount (minimum $10,000).');
+      if (isNaN(amount) || amount < 1000) {
+        printWarning(`Please enter a valid ${amountLabel} (minimum $1,000).`);
         continue;
       }
 
       // Get intent
-      let intent = await ask(rl, `${colors.cyan}Intent - purchase or refinance? [purchase]:${colors.reset} `);
-      intent = intent.toLowerCase() || 'purchase';
+      const intentPrompt = validIntents.length > 1
+        ? `${validIntents.join(' or ')}? [${defaultIntent}]`
+        : `[${defaultIntent}]`;
+      let intent = await ask(rl, `${colors.cyan}Intent - ${intentPrompt}:${colors.reset} `);
+      intent = intent.toLowerCase() || defaultIntent;
 
-      if (!['purchase', 'refinance'].includes(intent)) {
-        printWarning('Please enter "purchase" or "refinance".');
+      if (!validIntents.includes(intent)) {
+        printWarning(`Please enter one of: ${validIntents.join(', ')}`);
         continue;
+      }
+
+      // Get term months based on product type
+      let termMonths;
+      if (productType === 'credit_card') {
+        // Credit cards don't have a term
+        termMonths = undefined;
+      } else {
+        const defaultTerms = {
+          'mortgage': 360,      // 30 years
+          'auto_loan': 60,      // 5 years
+          'heloc': 120,         // 10 years
+          'personal_loan': 36,  // 3 years
+        };
+        termMonths = defaultTerms[productType];
       }
 
       // Get current rate if refinancing
       let currentRate = null;
-      if (intent === 'refinance') {
+      if (intent === 'refinance' || intent === 'balance_transfer') {
         const rateStr = await ask(rl, `${colors.cyan}Current rate (optional, e.g., 7.5):${colors.reset} `);
         if (rateStr) {
           currentRate = parseFloat(rateStr);
-          if (isNaN(currentRate) || currentRate < 0 || currentRate > 20) {
+          if (isNaN(currentRate) || currentRate < 0 || currentRate > 30) {
             printWarning('Invalid rate. Proceeding without current rate.');
             currentRate = null;
           }
@@ -431,6 +488,8 @@ async function main() {
           state,
           amount,
           intent,
+          productType,
+          termMonths,
           currentRate,
         });
 

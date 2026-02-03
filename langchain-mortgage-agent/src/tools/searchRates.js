@@ -4,17 +4,23 @@ import { z } from 'zod';
 const RATEAPI_URL = process.env.RATEAPI_URL || 'https://api.rateapi.dev';
 
 /**
- * Search for mortgage rates using the RateAPI decision engine
+ * Search for financial rates using the RateAPI decision engine
  */
 export const searchRates = tool(
-  async ({ state, productType, loanAmount, intent }) => {
+  async ({ state, productType, productCategory, loanAmount, intent }) => {
     const apiKey = process.env.RATEAPI_KEY;
     if (!apiKey) {
       return JSON.stringify({ error: 'RATEAPI_KEY not configured' });
     }
 
     try {
-      const termMonths = productType === '15-year-fixed' ? 180 : 360;
+      // Determine term_months based on productType (for mortgages and auto loans)
+      let termMonths = 360; // default 30-year mortgage
+      if (productType === '15-year-fixed') {
+        termMonths = 180;
+      } else if (productCategory === 'auto_loan') {
+        termMonths = 60; // default 5-year auto loan
+      }
 
       // Use the new decision engine format
       const response = await fetch(`${RATEAPI_URL}/v1/decisions`, {
@@ -30,7 +36,7 @@ export const searchRates = tool(
             geo: { state }
           },
           product_request: {
-            product_type: 'mortgage',
+            product_type: productCategory || 'mortgage',
             intent: intent || 'purchase',
             amount: loanAmount || 500000,
             term_months: termMonths,
@@ -79,15 +85,18 @@ export const searchRates = tool(
   },
   {
     name: 'searchRates',
-    description: 'Search for current mortgage rates by state and loan parameters. Returns the best available rates from credit unions.',
+    description: 'Search for current financial rates by state and loan parameters. Supports mortgages, auto loans, HELOCs, personal loans, and credit cards. Returns the best available rates from credit unions and lenders.',
     schema: z.object({
       state: z.string().length(2).describe('US state code (e.g., "CA", "NY", "TX")'),
+      productCategory: z.enum(['mortgage', 'auto_loan', 'heloc', 'personal_loan', 'credit_card'])
+        .describe('Type of financial product. Use "mortgage" as default'),
       productType: z.enum(['30-year-fixed', '15-year-fixed', '5-1-arm', '7-1-arm'])
-        .describe('Type of mortgage product. Use "30-year-fixed" as default'),
+        .optional()
+        .describe('Type of mortgage product (only applies to mortgages). Use "30-year-fixed" as default'),
       loanAmount: z.number()
-        .describe('Loan amount in dollars. Use 500000 as default'),
-      intent: z.enum(['purchase', 'refinance'])
-        .describe('Whether this is for a purchase or refinance. Use "purchase" as default'),
+        .describe('Loan amount in dollars. Use 500000 for mortgages, 30000 for auto loans, 20000 for personal loans as defaults'),
+      intent: z.enum(['purchase', 'refinance', 'cash_out', 'balance_transfer', 'new_credit'])
+        .describe('Loan intent: "purchase" or "refinance" for mortgages/auto loans, "cash_out" for HELOCs, "balance_transfer" or "new_credit" for credit cards. Use "purchase" as default'),
     }),
   }
 );

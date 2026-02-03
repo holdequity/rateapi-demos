@@ -63,7 +63,7 @@ export const getCreditUnion = tool(
   },
   {
     name: 'getCreditUnion',
-    description: 'Get detailed information about a specific credit union including all their current mortgage rates. Use the credit union slug from search results.',
+    description: 'Get detailed information about a specific credit union including all their current rates across all product types. Use the credit union slug from search results.',
     schema: z.object({
       state: z.string().length(2).describe('US state code (e.g., "CA", "NY")'),
       slug: z.string().describe('Credit union URL slug (e.g., "golden-1-credit-union", "navy-federal-credit-union")'),

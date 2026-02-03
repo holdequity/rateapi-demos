@@ -13,13 +13,18 @@ export const TOOLS = [
     type: 'function',
     function: {
       name: 'get_financing_decision',
-      description: 'Get personalized mortgage financing recommendations. Returns ranked offers with rates, monthly payments, and potential savings.',
+      description: 'Get personalized financing recommendations for mortgages, auto loans, HELOCs, personal loans, and credit cards. Returns ranked offers with rates, monthly payments, and potential savings.',
       parameters: {
         type: 'object',
         properties: {
           state: {
             type: 'string',
             description: 'US state code (2 letters, e.g., CA, TX, NY)',
+          },
+          product_type: {
+            type: 'string',
+            enum: ['mortgage', 'auto_loan', 'heloc', 'personal_loan', 'credit_card'],
+            description: 'Type of financial product. Defaults to mortgage.',
           },
           intent: {
             type: 'string',
@@ -47,7 +52,7 @@ export const TOOLS = [
     type: 'function',
     function: {
       name: 'get_credit_union',
-      description: 'Get detailed information about a specific credit union including all their current mortgage rates.',
+      description: 'Get detailed information about a specific credit union including all their current rates for all products.',
       parameters: {
         type: 'object',
         properties: {
@@ -79,7 +84,7 @@ export class RateAPIClient {
     };
   }
 
-  async getFinancingDecision({ state, intent, amount, termMonths = 360, currentRate = null, maxProviders = 5 }) {
+  async getFinancingDecision({ state, intent, amount, productType = 'mortgage', termMonths = 360, currentRate = null, maxProviders = 5 }) {
     const requestBody = {
       decision_type: 'financing',
       context: {
@@ -89,7 +94,7 @@ export class RateAPIClient {
         },
       },
       product_request: {
-        product_type: 'mortgage',
+        product_type: productType,
         intent,
         amount,
         term_months: termMonths,
@@ -147,6 +152,7 @@ export async function executeTool(client, name, args) {
         state: args.state,
         intent: args.intent,
         amount: args.amount,
+        productType: args.product_type || 'mortgage',
         termMonths: args.term_months || 360,
         currentRate: args.current_rate,
       });

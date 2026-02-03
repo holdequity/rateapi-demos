@@ -30,6 +30,8 @@ export interface UseRateAPIOptions {
   proxyUrl: string;
   /** US state code (e.g., "CA", "NY") */
   state?: string;
+  /** Product type: mortgage, auto_loan, heloc, personal_loan, credit_card */
+  productType?: string;
   /** Number of results to return */
   limit?: number;
   /** Auto-refresh interval in ms (0 = disabled) */
@@ -63,6 +65,7 @@ export function useRateAPI(options: UseRateAPIOptions): UseRateAPIResult {
   const {
     proxyUrl,
     state,
+    productType,
     limit = 5,
     refreshInterval = 0,
   } = options;
@@ -85,6 +88,7 @@ export function useRateAPI(options: UseRateAPIOptions): UseRateAPIResult {
 
       const params = new URLSearchParams();
       if (state) params.set('state', state);
+      if (productType) params.set('product_type', productType);
       params.set('limit', String(limit));
 
       const separator = proxyUrl.includes('?') ? '&' : '?';
@@ -110,7 +114,7 @@ export function useRateAPI(options: UseRateAPIOptions): UseRateAPIResult {
     } finally {
       setLoading(false);
     }
-  }, [proxyUrl, state, limit]);
+  }, [proxyUrl, state, productType, limit]);
 
   // Initial fetch
   useEffect(() => {

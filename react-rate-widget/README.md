@@ -1,8 +1,9 @@
 # React Rate Widget Demo
 
 <p align="center">
-  <b>Reference implementation for building mortgage rate UI components with React</b><br>
-  Demonstrates: API proxy patterns, custom hooks, theming, state management
+  <b>Reference implementation for building financial rate UI components with React</b><br>
+  Demonstrates: API proxy patterns, custom hooks, theming, state management<br>
+  Supports: Mortgages, Auto Loans, HELOCs, Personal Loans, Credit Cards
 </p>
 
 <p align="center">
@@ -17,9 +18,10 @@
 
 ## Use This Pattern For
 
-- **Real estate platforms** - Embed rate widgets on property listings
-- **Mortgage comparison sites** - Build custom rate comparison tables
-- **Financial dashboards** - Add rate data to wealth management tools
+- **Real estate platforms** - Embed mortgage and HELOC rate widgets on property listings
+- **Auto dealerships** - Show current auto loan rates on vehicle listings
+- **Financial comparison sites** - Build custom rate comparison tables across products
+- **Banking apps** - Add rate data to customer dashboards
 - **White-label solutions** - Reskinnable rate components for partners
 
 ---
@@ -60,8 +62,9 @@ Sign up at [https://rateapi.dev](https://rateapi.dev) to get your API key.
 
 ## 🎨 Features
 
+- **Multi-Product Support** - Mortgages, auto loans, HELOCs, personal loans, credit cards
 - **Live Data** - Real-time rates from 4,000+ credit unions
-- **Customizable** - Filter by state, limit results
+- **Customizable** - Filter by state, product type, limit results
 - **Themeable** - Light, dark, and auto (system preference) themes
 - **Responsive** - Looks great on mobile and desktop
 - **TypeScript** - Full type definitions included
@@ -120,7 +123,12 @@ export async function POST(request: Request) {
 import { RateWidget } from './components/RateWidget';
 import './components/RateWidget.css';
 
-<RateWidget proxyUrl="/api/rates" state="CA" limit={5} />
+<RateWidget
+  proxyUrl="/api/rates"
+  state="CA"
+  productType="mortgage"
+  limit={5}
+/>
 ```
 
 ---
@@ -131,11 +139,13 @@ import './components/RateWidget.css';
 |------|------|---------|-------------|
 | `proxyUrl` | `string` | *required* | Your backend proxy URL |
 | `state` | `string` | `undefined` | Filter by US state code (e.g., "CA", "NY") |
+| `productType` | `string` | `'mortgage'` | Product type: `mortgage`, `auto_loan`, `heloc`, `personal_loan`, `credit_card` |
 | `limit` | `number` | `5` | Number of rates to display |
-| `title` | `string` | `"Today's Best Rates"` | Widget title |
+| `title` | `string` | Dynamic | Widget title (auto-generated based on product type) |
 | `theme` | `'light' \| 'dark' \| 'auto'` | `'light'` | Color theme |
 | `compact` | `boolean` | `false` | Compact mode for smaller spaces |
 | `showStateFilter` | `boolean` | `false` | Show state dropdown |
+| `showProductFilter` | `boolean` | `false` | Show product type dropdown |
 | `showRefreshButton` | `boolean` | `true` | Show refresh button |
 | `refreshInterval` | `number` | `0` | Auto-refresh interval in ms (0 = disabled) |
 | `onRateClick` | `(rate) => void` | `undefined` | Callback when a rate row is clicked |
@@ -160,16 +170,29 @@ import './components/RateWidget.css';
 
 ## 📝 Examples
 
-### Basic Usage
-```tsx
-<RateWidget proxyUrl="/api/rates" />
-```
-
-### With State Filter
+### Basic Usage (Mortgages)
 ```tsx
 <RateWidget
   proxyUrl="/api/rates"
+  productType="mortgage"
+/>
+```
+
+### Auto Loans
+```tsx
+<RateWidget
+  proxyUrl="/api/rates"
+  productType="auto_loan"
   state="CA"
+  showStateFilter={true}
+/>
+```
+
+### With Product Selector
+```tsx
+<RateWidget
+  proxyUrl="/api/rates"
+  showProductFilter={true}
   showStateFilter={true}
 />
 ```
@@ -178,6 +201,7 @@ import './components/RateWidget.css';
 ```tsx
 <RateWidget
   proxyUrl="/api/rates"
+  productType="personal_loan"
   compact={true}
   limit={3}
 />
@@ -201,6 +225,24 @@ import './components/RateWidget.css';
 />
 ```
 
+### Different Product Types
+```tsx
+// Mortgages
+<RateWidget proxyUrl="/api/rates" productType="mortgage" />
+
+// Auto Loans
+<RateWidget proxyUrl="/api/rates" productType="auto_loan" />
+
+// HELOCs
+<RateWidget proxyUrl="/api/rates" productType="heloc" />
+
+// Personal Loans
+<RateWidget proxyUrl="/api/rates" productType="personal_loan" />
+
+// Credit Cards
+<RateWidget proxyUrl="/api/rates" productType="credit_card" />
+```
+
 ---
 
 ## 🪝 Using the Hook Directly
@@ -214,6 +256,7 @@ function CustomRateDisplay() {
   const { rates, loading, error, refresh, lastUpdated } = useRateAPI({
     proxyUrl: '/api/rates',
     state: 'CA',
+    productType: 'auto_loan',
     limit: 10,
   });
 

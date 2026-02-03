@@ -4,17 +4,23 @@ import { z } from 'zod';
 const RATEAPI_URL = process.env.RATEAPI_URL || 'https://api.rateapi.dev';
 
 /**
- * Compare mortgage rates across multiple states
+ * Compare financial rates across multiple states
  */
 export const compareRates = tool(
-  async ({ states, productType, loanAmount }) => {
+  async ({ states, productType, productCategory, loanAmount }) => {
     const apiKey = process.env.RATEAPI_KEY;
     if (!apiKey) {
       return JSON.stringify({ error: 'RATEAPI_KEY not configured' });
     }
 
     try {
-      const termMonths = productType === '15-year-fixed' ? 180 : 360;
+      // Determine term_months based on productType/productCategory
+      let termMonths = 360; // default 30-year mortgage
+      if (productType === '15-year-fixed') {
+        termMonths = 180;
+      } else if (productCategory === 'auto_loan') {
+        termMonths = 60; // default 5-year auto loan
+      }
 
       // Fetch rates for each state in parallel
       const results = await Promise.all(
@@ -33,7 +39,7 @@ export const compareRates = tool(
                   geo: { state }
                 },
                 product_request: {
-                  product_type: 'mortgage',
+                  product_type: productCategory || 'mortgage',
                   intent: 'purchase',
                   amount: loanAmount || 500000,
                   term_months: termMonths,
@@ -113,16 +119,19 @@ export const compareRates = tool(
   },
   {
     name: 'compareRates',
-    description: 'Compare the best mortgage rates across multiple US states. Useful for understanding regional rate differences.',
+    description: 'Compare the best financial rates across multiple US states. Supports mortgages, auto loans, HELOCs, personal loans, and credit cards. Useful for understanding regional rate differences.',
     schema: z.object({
       states: z.array(z.string().length(2))
         .min(2)
         .max(10)
         .describe('Array of US state codes to compare (e.g., ["CA", "NY", "TX"])'),
+      productCategory: z.enum(['mortgage', 'auto_loan', 'heloc', 'personal_loan', 'credit_card'])
+        .describe('Type of financial product to compare. Use "mortgage" as default'),
       productType: z.enum(['30-year-fixed', '15-year-fixed'])
-        .describe('Type of mortgage to compare. Use "30-year-fixed" as default'),
+        .optional()
+        .describe('Type of mortgage to compare (only applies to mortgages). Use "30-year-fixed" as default'),
       loanAmount: z.number()
-        .describe('Loan amount for payment calculations. Use 500000 as default'),
+        .describe('Loan amount for payment calculations. Use 500000 for mortgages, 30000 for auto loans as defaults'),
     }),
   }
 );

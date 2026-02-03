@@ -11,13 +11,13 @@ export interface RateWidgetProps {
   proxyUrl: string;
   /** US state code to filter rates (e.g., "CA", "NY") */
   state?: string;
-  /** Product type filter (default: "30-year-fixed") */
+  /** Product type filter: mortgage, auto_loan, heloc, personal_loan, credit_card (default: "mortgage") */
   productType?: string;
   /** Number of rates to display (default: 5) */
   limit?: number;
   /** Auto-refresh interval in milliseconds (0 = disabled) */
   refreshInterval?: number;
-  /** Widget title (default: "Today's Best Rates") */
+  /** Widget title (defaults to dynamic title based on product type, e.g. "Mortgage Rates") */
   title?: string;
   /** Show state filter dropdown */
   showStateFilter?: boolean;
@@ -64,14 +64,24 @@ const US_STATES = [
 ];
 
 const PRODUCT_TYPES = [
-  { value: '30-year-fixed', label: '30-Year Fixed' },
-  { value: '15-year-fixed', label: '15-Year Fixed' },
-  { value: '5-1-arm', label: '5/1 ARM' },
-  { value: '7-1-arm', label: '7/1 ARM' },
+  { value: 'mortgage', label: 'Mortgages', category: 'mortgage' },
+  { value: 'auto_loan', label: 'Auto Loans', category: 'auto_loan' },
+  { value: 'heloc', label: 'HELOCs', category: 'heloc' },
+  { value: 'personal_loan', label: 'Personal Loans', category: 'personal_loan' },
+  { value: 'credit_card', label: 'Credit Cards', category: 'credit_card' },
 ];
 
+const PRODUCT_TYPE_LABELS: Record<string, string> = {
+  mortgage: 'Mortgage Rates',
+  auto_loan: 'Auto Loan Rates',
+  heloc: 'HELOC Rates',
+  personal_loan: 'Personal Loan Rates',
+  credit_card: 'Credit Card Offers',
+};
+
 /**
- * RateWidget - Embeddable mortgage rate comparison widget
+ * RateWidget - Embeddable financial rate comparison widget
+ * Supports mortgages, auto loans, HELOCs, personal loans, and credit cards
  *
  * IMPORTANT: Use a backend proxy to protect your API key!
  *
@@ -80,9 +90,10 @@ const PRODUCT_TYPES = [
  * <RateWidget
  *   proxyUrl="/api/rates"  // Your backend that adds API key
  *   state="CA"
- *   productType="30-year-fixed"
+ *   productType="mortgage"  // or auto_loan, heloc, personal_loan, credit_card
  *   limit={5}
  *   theme="light"
+ *   showProductFilter={true}
  * />
  * ```
  */
@@ -92,7 +103,7 @@ export function RateWidget({
   productType: initialProductType,
   limit = 5,
   refreshInterval,
-  title = "Today's Best Rates",
+  title,
   showStateFilter = false,
   showProductFilter = false,
   showRefreshButton = true,
@@ -102,7 +113,9 @@ export function RateWidget({
   onRateClick,
 }: RateWidgetProps) {
   const [selectedState, setSelectedState] = React.useState(initialState);
-  const [selectedProductType, setSelectedProductType] = React.useState(initialProductType || '30-year-fixed');
+  const [selectedProductType, setSelectedProductType] = React.useState(initialProductType || 'mortgage');
+
+  const widgetTitle = title || PRODUCT_TYPE_LABELS[selectedProductType] || "Today's Best Rates";
 
   const { rates, loading, error, lastUpdated, refresh } = useRateAPI({
     proxyUrl,
@@ -138,7 +151,7 @@ export function RateWidget({
     <div className={`rateapi-widget ${themeClass} ${compact ? 'rateapi-widget-compact' : ''} ${className}`}>
       {/* Header */}
       <div className="rateapi-widget-header">
-        <h3 className="rateapi-widget-title">{title}</h3>
+        <h3 className="rateapi-widget-title">{widgetTitle}</h3>
         {lastUpdated && (
           <span className="rateapi-widget-updated">
             Updated {getRelativeTime(lastUpdated)}

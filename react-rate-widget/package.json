@@ -1,7 +1,7 @@
 {
   "name": "@rateapi/react-rate-widget",
   "version": "1.0.0",
-  "description": "Embeddable React component for displaying live mortgage rates from RateAPI",
+  "description": "Embeddable React component for displaying live financial rates (mortgages, auto loans, HELOCs, personal loans, credit cards) from RateAPI",
   "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -43,6 +43,10 @@
   "keywords": [
     "react",
     "mortgage",
+    "auto-loan",
+    "heloc",
+    "personal-loan",
+    "credit-card",
     "rates",
     "widget",
     "rateapi",

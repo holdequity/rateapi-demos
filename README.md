@@ -24,7 +24,7 @@
 [![GitHub stars](https://img.shields.io/github/stars/rate-api/demos?style=social)](https://github.com/rate-api/demos/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/rate-api/demos?style=social)](https://github.com/rate-api/demos/network/members)
 
-**This is a collection of developer demos** — working code examples that show how to integrate RateAPI's mortgage rate data into different types of applications. Fork the code, learn from it, and adapt it for your own projects.
+**This is a collection of developer demos** — working code examples that show how to integrate RateAPI's financial rate data (mortgages, auto loans, HELOCs, personal loans, and credit cards) into different types of applications. Fork the code, learn from it, and adapt it for your own projects.
 
 ```bash
 git clone https://github.com/rate-api/demos.git
@@ -38,12 +38,12 @@ node run.js rate-explorer  # Auto-creates API key, explore the API
 
 These demos show integration patterns for:
 
-- **Real Estate Platforms** — Rate widgets for property listings
-- **Financial Planning Apps** — Refinance recommendations, mortgage optimization
-- **AI Assistants** — Natural language mortgage rate queries
-- **Rate Comparison Sites** — Credit union rate aggregators
-- **Monitoring & Alerts** — Webhook-powered rate drop notifications
-- **Browser Extensions** — Contextual rate overlays on real estate sites
+- **Real Estate Platforms** — Rate widgets for property listings and mortgage comparisons
+- **Financial Planning Apps** — Refinance recommendations, auto loan calculators, HELOC optimization
+- **AI Assistants** — Natural language queries for mortgages, auto loans, personal loans, and credit cards
+- **Rate Comparison Sites** — Multi-product rate aggregators across all loan types
+- **Monitoring & Alerts** — Webhook-powered rate drop notifications for any product
+- **Browser Extensions** — Contextual rate overlays for mortgages, auto financing, and refinancing tools
 
 **Get your free API key:** [https://rateapi.dev](https://rateapi.dev)
 
@@ -83,7 +83,7 @@ These demos show integration patterns for:
 
 ### 🔍 1. Rate Explorer
 
-**Find the best mortgage rates in seconds.** Zero dependencies, just Node.js.
+**Find the best financial rates in seconds.** Zero dependencies, just Node.js.
 
 ```bash
 node run.js rate-explorer
@@ -100,7 +100,7 @@ node run.js rate-explorer
 
 ### 🔔 2. Webhook Monitor
 
-**Get alerts when mortgage rates drop.** Production-ready webhook verification included.
+**Get alerts when rates drop.** Production-ready webhook verification included.
 
 ```bash
 cd rate-monitor && npm install
@@ -118,7 +118,7 @@ node server.js
 
 ### 🤖 3. AI Agent
 
-**Chat-based mortgage advisor.** Works without OpenAI key (mock mode).
+**Chat-based financial advisor for mortgages, auto loans, personal loans, HELOCs, and credit cards.** Works without OpenAI key (mock mode).
 
 ```bash
 node run.js rate-agent          # Mock mode
@@ -136,7 +136,7 @@ node run.js rate-agent --real   # GPT-4 mode (needs OPENAI_API_KEY)
 
 ### 📊 4. React Widget
 
-**Embeddable rate comparison widget.** Light/dark themes, TypeScript support.
+**Embeddable rate comparison widget for mortgages, auto loans, and more.** Light/dark themes, TypeScript support.
 
 ```bash
 cd react-rate-widget && npm install
@@ -154,7 +154,7 @@ RATEAPI_KEY=your-key npm start
 
 ### 🧠 5. LangChain Agent
 
-**Full mortgage advisor with LangChain.** CLI and web interface.
+**Full financial advisor with LangChain for all loan products.** CLI and web interface.
 
 ```bash
 cd langchain-mortgage-agent && npm install
@@ -178,14 +178,15 @@ npm run web       # Web UI at localhost:3000
 [![Add to Discord](https://img.shields.io/badge/Add_to_Discord-5865F2?style=for-the-badge&logo=discord&logoColor=white)](https://rateapi.dev/discord-bot)
 
 **Features:**
-- Real-time rate comparisons across thousands of credit unions
-- Rate drop alerts — get notified when rates hit your target
-- Natural language queries — ask questions in plain English
+- Real-time rate comparisons for mortgages, auto loans, HELOCs, personal loans, and credit cards
+- Rate drop alerts — get notified when rates hit your target across any product
+- Natural language queries — ask questions in plain English about any loan type
 
 **Great for:**
-- Real estate investing Discord communities
+- Real estate investing and FIRE community Discord servers
 - Personal finance servers
-- Mortgage professional groups
+- Auto enthusiast and car buying communities
+- Mortgage and lending professional groups
 
 [View documentation and add the bot →](https://rateapi.dev/discord-bot)
 
@@ -288,5 +289,5 @@ PRs welcome! Ideas for new integration patterns:
 ---
 
 <p align="center">
-  <a href="https://rateapi.dev">RateAPI</a> — Mortgage rate data for developers
+  <a href="https://rateapi.dev">RateAPI</a> — Financial rate data for developers (mortgages, auto loans, HELOCs, personal loans, credit cards)
 </p>
